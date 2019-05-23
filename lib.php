@@ -257,7 +257,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             }
 
             // Either save in *_jplag or *_moss table.
-            foreach ($detectiontools as $toolname) {
+            foreach ($detectiontools as $toolname => $info) {
                 if ($setting->$toolname && !$DB->get_record('plagiarism_programming_'.$toolname,
                     array('settingid' => $setting->id))) {
 

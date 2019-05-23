@@ -346,7 +346,7 @@ function plagiarism_programming_get_students_similarity_info($cmid, $studid = nu
     ));
     // Get the latest report version.
     $reports = array();
-    foreach ($detectiontools as $toolname) {
+    foreach ($detectiontools as $toolname => $toolinfo) {
         if ($setting->$toolname) {
             $report = plagiarism_programming_get_latest_report($cmid, $toolname);
             if ($report) {

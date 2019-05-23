@@ -423,7 +423,7 @@ function plagiarism_programming_is_uploaded($assignment) {
     global $DB, $detectiontools;
 
     $uploaded = true;
-    foreach ($detectiontools as $toolname) {
+    foreach ($detectiontools as $toolname => $toolinfo) {
         if (!$assignment->$toolname) {
             continue;
         }
@@ -454,7 +454,9 @@ function plagiarism_programming_scan_assignment($assignment, $waitforresult = tr
     // This if prevent unnecessary extraction, since another cron can run over when the scanning hasn't finished.
     if (!plagiarism_programming_is_uploaded($assignment)) {
         $extractresult = plagiarism_programming_extract_assignment($assignment);
-        if ($extractresult == NOT_SUFFICIENT_SUBMISSION || $extractresult == CONTEXT_NOT_EXIST) {
+        if ($extractresult === true) {
+            // TODO: What should be done here? It is an empty if.
+        } else if ($extractresult == NOT_SUFFICIENT_SUBMISSION || $extractresult == CONTEXT_NOT_EXIST) {
             return;
         } else if ($extractresult == NOT_CORRECT_FILE_TYPE) {
             $message = get_string('invalid_file_type', 'plagiarism_programming')
@@ -481,7 +483,7 @@ function plagiarism_programming_scan_assignment($assignment, $waitforresult = tr
     $mail = ($notificationmail) ? 1 : 0;
     // Generating the token.
     $token = md5(time() + rand(1000000, 9999999));
-    foreach ($detectiontools as $toolname) {
+    foreach ($detectiontools as $toolname => $tool) {
         if (!$assignment->$toolname) { // This detector is not selected.
             continue;
         }

@@ -88,7 +88,7 @@ function start_scan_assignment($assignment, $time) {
 
     echo get_string('scanning_in_progress', 'plagiarism_programming') . "\n";
     // Reset the status of all tools to pending and clear the error message if it is finished or error.
-    foreach ($detectiontools as $toolname) {
+    foreach ($detectiontools as $toolname => $tool) {
         if (isset($assignment->$toolname)) {
             $toolrecord = $DB->get_record('plagiarism_programming_' . $toolname, array(
                 'settingid' => $assignment->id
