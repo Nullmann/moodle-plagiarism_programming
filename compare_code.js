@@ -349,7 +349,7 @@ M.plagiarism_programming.compare_code = {
             visible : false
         });
         this.history_overlay.align(Y.one('#show_history_link'), [
-                Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.BR ])
+                Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.BR ]);
 
         Y.io('mark_result.php?task=get_history&id='
                 + M.plagiarism_programming.compare_code.id, {
@@ -371,7 +371,7 @@ M.plagiarism_programming.compare_code = {
                 .create('<div class="programming_result_popup_chart"></div>');
         var h_label = Y.Node.create('<label class="h_label">'
                 + M.str.moodle.date + '</label>');
-        var v_label = Y.Node.create('<label class="v_label">%</label>')
+        var v_label = Y.Node.create('<label class="v_label">%</label>');
 
         canvas.append(h_label);
         canvas.append(v_label);
