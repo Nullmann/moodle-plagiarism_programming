@@ -142,15 +142,15 @@ M.plagiarism_programming.assignment_setting = {
         window.scrollTo(0, node.getY() - 100);
         alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
 
-        /*
-         * Fieldset does not work because dataset is used differently now TODO:
-         * Find a better solution while (node!=null &&
-         * node.get('tagName')!='FIELDSET') { node = node.get('parentNode'); }
-         * if (node!=null && node.get('tagName')=='FIELDSET' &&
-         * node.all('.error').isEmpty()) { // insert the message var msg_node =
-         * Y.Node.create('<span class="error">'+error_msg+'<br></span>');
-         * node.get('children').item(0).insert(msg_node,'before');
-         * window.scrollTo(0, msg_node.getY()-40); }
+        /* TODO: Fieldset does not work because dataset is used differently now
+         
+         Find a better solution while (node!=null &&
+         node.get('tagName')!='FIELDSET') { node = node.get('parentNode'); }
+         if (node!=null && node.get('tagName')=='FIELDSET' &&
+         node.all('.error').isEmpty()) { // insert the message var msg_node =
+         Y.Node.create('<span class="error">'+error_msg+'<br></span>');
+         node.get('children').item(0).insert(msg_node,'before');
+         window.scrollTo(0, msg_node.getY()-40); }
          */
     },
 

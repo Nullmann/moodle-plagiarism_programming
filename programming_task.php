@@ -30,7 +30,7 @@ require_once(__DIR__ . '/scan_assignment.php');
 require_once(__DIR__ . '/detection_tools.php');
 
 // Select the assignments needed to be scanned.
-global $DB, $CFG, $detectiontools;
+global $DB, $detectiontools;
 
 plagiarism_programming_create_temp_dir();
 

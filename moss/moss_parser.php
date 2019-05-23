@@ -22,7 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use Leafo\ScssPhp\Node\Number;
 defined('MOODLE_INTERNAL') || die('Access to internal script forbidden');
 
 /**

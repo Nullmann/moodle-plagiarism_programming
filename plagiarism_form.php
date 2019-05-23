@@ -107,12 +107,12 @@ class plagiarism_setup_form extends moodleform {
      *         or an empty array if everything is OK (true allowed for backwards compatibility too).
      */
     public function validation($data, $files) {
-        global $CFG;
         $errors = parent::validation($data, $files);
 
         /*
          * Comment out jplag stuff!
          *
+         * global $CFG;
          * $empty_user = empty($data['jplag_user']);
          * $empty_pass = empty($data['jplag_pass']);
          * if (!$empty_user && $empty_pass) { //missing username

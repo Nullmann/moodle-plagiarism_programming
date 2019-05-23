@@ -197,7 +197,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
     }
 
     /**
-     * Save the form into db
+     * Save the form into database
      * @param stdClass $data the data object retrieved from the form
      * @return void
      */

@@ -455,7 +455,7 @@ function plagiarism_programming_scan_assignment($assignment, $waitforresult = tr
     if (!plagiarism_programming_is_uploaded($assignment)) {
         $extractresult = plagiarism_programming_extract_assignment($assignment);
         if ($extractresult === true) {
-            // TODO: What should be done here? It is an empty if.
+            mtrace("Extraction of assignments successfull");
         } else if ($extractresult == NOT_SUFFICIENT_SUBMISSION || $extractresult == CONTEXT_NOT_EXIST) {
             return;
         } else if ($extractresult == NOT_CORRECT_FILE_TYPE) {
