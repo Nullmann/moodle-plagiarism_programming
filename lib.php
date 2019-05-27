@@ -141,8 +141,10 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             get_string('moss', 'plagiarism_programming'), $mossdisabled);
         $mform->addGroup($selectedtools, 'detection_tools', get_string('detection_tools', 'plagiarism_programming'));
 
+        // Display scan dates.
         $this->setup_multiple_scandate($mform, $plagiarismconfig);
 
+        // Additional settings.
         $mform->addElement('checkbox', 'auto_publish', get_string('auto_publish', 'plagiarism_programming'));
         $mform->addElement('checkbox', 'notification', get_string('notification', 'plagiarism_programming'));
         $mform->addElement('textarea', 'notification_text', get_string('notification_text', 'plagiarism_programming'),
@@ -586,8 +588,9 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         }
         $dbscandate = count($scandates);
 
-        $datenum = optional_param('submit_date_num', max($dbscandate, 1), PARAM_INT);
+        $datenum = optional_param('submit_date_num', max($dbscandate, 1), PARAM_INT); // Position for new scan date
         $isadddate = optional_param('add_new_date', '', PARAM_TEXT); // Add another form element if new date button was pushed.
+
         if (!empty($isadddate)) { // The hidden element, combined with javascript, makes the form jump to the date position.
             // Add another date picker.
             $datenum++;
@@ -604,21 +607,24 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         foreach ($scandates as $scandate) {
             if ($scandate->finished) {
                 $name = "scan_date_finished[$i]";
-                $mform->addElement('date_selector', $name, get_string('scan_date_finished', 'plagiarism_programming'),
+                $mform->addElement('date_time_selector', $name, get_string('scan_date_finished', 'plagiarism_programming'),
                         null, array('disabled' => 'disabled'));
                 $constantvars[$name] = $scandate->scan_date;
+                $mform->addHelpButton($name, 'date_selector_finished_hlp', 'plagiarism_programming');
             } else {
                 $name = "scan_date[$i]";
-                $mform->addElement('date_selector', "scan_date[$i]", get_string('scan_date', 'plagiarism_programming'),
+                $mform->addElement('date_time_selector', "scan_date[$i]", get_string('scan_date', 'plagiarism_programming'),
                     array('optional' => true));
                 $mform->disabledIf($name, 'programmingYN', 'eq', 0);
+                $mform->addHelpButton($name, 'date_selector_hlp', 'plagiarism_programming');
             }
             $mform->setDefault($name, $scandate->scan_date);
-            $mform->addHelpButton($name, 'date_selector_hlp', 'plagiarism_programming');
+
             $i++;
         }
+
         for ($i = $dbscandate; $i < $datenum; $i++) {
-            $mform->addElement('date_selector', "scan_date[$i]", get_string('scan_date', 'plagiarism_programming'),
+            $mform->addElement('date_time_selector', "scan_date[$i]", get_string('scan_date', 'plagiarism_programming'),
                 array('optional' => true));
             $mform->addHelpButton("scan_date[$i]", 'date_selector_hlp', 'plagiarism_programming');
         }
@@ -626,6 +632,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         $mform->addElement('hidden', 'submit_date_num', $datenum);
         $mform->setType('submit_date_num', PARAM_INT);
         $mform->setConstants(array('submit_date_num' => $datenum));
+
         $mform->addElement('submit', 'add_new_date', get_string('new_scan_date', 'plagiarism_programming'));
         $mform->disabledIf('add_new_date', 'programmingYN', 'eq', 0);
         $mform->registerNoSubmitButton('add_new_date');

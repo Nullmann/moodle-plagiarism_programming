@@ -94,8 +94,9 @@ $string['detection_tools_hlp_help'] = 'Select the detection tool(s) to use. Each
     .'You can select both. However, a tool may not support some languages (in this case it will be grayed out)';
 $string['date_selector_hlp'] = '';
 $string['date_selector_hlp_help'] = 'Select the date that the submissions will be scanned. You can select multiple dates. '.
-    'To allow draft submission, you can select some dates before the due date so that students can see the report and modify '.
-    'their assignments. Alternatively, you can manually trigger the scanning by pressing the Scan button on the assignment page';
+    'Alternatively, you can manually trigger the scanning by pressing the Scan button on the assignment page';
+$string['date_selector_finished_hlp'] = '';
+$string['date_selector_finished_hlp_help'] = 'This scan was finished and can not be changed anymore. See the report in grading view.';
 $string['auto_publish_hlp'] = '';
 $string['auto_publish_hlp_help'] = 'Allow the students to see the plagiarism report.'
     .' They can see the similarity percentage but neither their code of nor their names.';

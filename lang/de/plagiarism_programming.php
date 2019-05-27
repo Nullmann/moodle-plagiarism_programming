@@ -94,8 +94,9 @@ $string['detection_tools_hlp_help'] = 'Wählen Sie die zu verwendenden Erkennung
     .'Sie können beide auswählen. Ein Tool unterstützt jedoch möglicherweise einige Sprachen nicht (in diesem Fall ist es ausgegraut)';
 $string['date_selector_hlp'] = '';
 $string['date_selector_hlp_help'] = 'Wählen Sie das Datum, an dem die Beiträge gescannt werden sollen. Sie können mehrere Termine auswählen. '
-    .'Um die Einreichung von Entwürfen zu ermöglichen, können Sie einige Daten vor dem Fälligkeitsdatum auswählen, damit die Schüler den Bericht sehen und ihre Abgabe ändern können.'
     .'Alternativ können Sie den Scanvorgang auch manuell auslösen, indem Sie die Schaltfläche "Scannen" auf der Abgabeübersicht drücken';
+    $string['date_selector_finished_hlp'] = '';
+    $string['date_selector_finished_hlp_help'] = 'Dieser Scan wurde bereits beendet und kann nicht mehr verändert werden. Den Bericht können Sie in der Bewertungs-Ansicht einsehen.';
 $string['auto_publish_hlp'] = '';
 $string['auto_publish_hlp_help'] = 'Den Studenten erlauben, den Plagiatbericht zu sehen'
     .'Sie können die Ähnlichkeitsprozente sehen, aber weder den Code noch die Namen anderer Studierender';
