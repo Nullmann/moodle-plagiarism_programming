@@ -28,26 +28,14 @@ M.plagiarism_programming.assignment_setting = {
             config_block = Y.one('#id_programming_header');
         }
 
-        /*
-         * Uncomment code because label is null and it's usage is unknown.
-         * Probably old YUI stuff. var items = config_block.all('.fitem'); var
-         * div = items.item(1); div.addClass('required'); var label =
-         * div.one('span.helplink'); if (!label) { label =
-         * div.one('span.helptooltip'); }
-         * //label.insert(required_img.cloneNode(true), 'before'); // Bug: label
-         * is null div.addClass('required'); label = div.one('span.helplink');
-         * if (!label) { label = div.one('span.helptooltip'); }
-         * //label.insert(required_img.cloneNode(true), 'before'); // Bug: label
-         * is null
-         */
-
         var skipClientValidation = false;
         Y.one('#mform1').on('submit', function (e) {
             if (skipClientValidation) {
                 return;
             }
             var is_tool_selected = this.check_mandatory_form_field(Y);
-            var is_date_valid = this.check_submit_date(Y);
+            // Disabled because YUI does not update when a checkbox is checked, unlike JQuery and such.
+            // var is_date_valid = this.check_submit_date(Y);
             if (!is_tool_selected || !is_date_valid) {
                 e.preventDefault();
             }
@@ -94,7 +82,7 @@ M.plagiarism_programming.assignment_setting = {
     },
 
     /**
-     * Check to make sure all submit date is not before the current date
+     * Check to make sure all submit dates are not before the current date
      *
      * @return true or false
      */
@@ -106,40 +94,40 @@ M.plagiarism_programming.assignment_setting = {
         if (!config_block) {
             config_block = Y.one('#id_programming_header');
         }
+        
         var all_valid = true;
-        var enabled_chk = config_block
-                .all('input[type=checkbox][name*=scan_date]');
-        var size = enabled_chk.size();
         var current_date = new Date();
-        for (var i = 0; i < size; i++) {
-            if (enabled_chk.item(i).get('checked')) {
-                var day = config_block.one(
-                        'select[name=scan_date\\[' + i + '\\]\\[day\\]]').get(
-                        'value');
-                var month = config_block.one(
-                        'select[name=scan_date\\[' + i + '\\]\\[month\\]]')
-                        .get('value');
-                var year = config_block.one(
-                        'select[name=scan_date\\[' + i + '\\]\\[year\\]]').get(
-                        'value');
-                var date = new Date(year, month - 1, day);
-                var current = new Date(current_date.getFullYear(), current_date
-                        .getMonth(), current_date.getDate());
-                if (date.getTime() < current.getTime()) {
-                    M.plagiarism_programming.assignment_setting
-                            .display_error_message(
-                                    Y,
-                                    enabled_chk.item(i),
-                                    M.str.plagiarism_programming.invalid_submit_date_error);
+        var count_activatable_scan_dates = config_block.all('input[type=checkbox][name*=scan_date]').size();
+        // Divide by 6 because every date time picker has 5 entry fileds + calendar picker.
+        var count_finished_scan_dates = config_block.all('[name*=scan_date_finished]').size() / 6;
+
+        for (var i = count_finished_scan_dates; i < count_finished_scan_dates + count_activatable_scan_dates; i++) {
+            var enabled = config_block._node.elements.namedItem("scan_date\["+i+"\]\[enabled\]").value;
+            if (enabled) {
+                var day = config_block._node.elements.namedItem("scan_date\["+i+"\]\[day\]").value;
+                var hour = config_block._node.elements.namedItem("scan_date\["+i+"\]\[hour\]").value;
+                var minute = config_block._node.elements.namedItem("scan_date\["+i+"\]\[minute\]").value;
+                var month = config_block._node.elements.namedItem("scan_date\["+i+"\]\[month\]").value;
+                var year = config_block._node.elements.namedItem("scan_date\["+i+"\]\[year\]").value;
+
+                // Javascript starts counting in January with 0.
+                var date = new Date(year, month - 1, day, hour, minute);
+
+                if (date < current_date) {
+                    M.plagiarism_programming.assignment_setting.display_error_message(
+                        Y,
+                        //config_block._node.elements.namedItem("scan_date\["+i+"\]\[enabled\]"),
+                        M.str.plagiarism_programming.invalid_submit_date_error);
                     all_valid = false;
                 }
+
             }
         }
         return all_valid;
     },
 
     display_error_message : function (Y, node, error_msg) {
-        window.scrollTo(0, node.getY() - 100);
+        //window.scrollTo(0, node.getY() - 100);
         alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
 
         /* TODO: Fieldset does not work because dataset is used differently now
@@ -198,7 +186,6 @@ M.plagiarism_programming.assignment_setting = {
         if (!config_block) {
             config_block = this.Y.one('#id_programming_header');
         }
-        return config_block.one('input[name=programmingYN]:checked').get(
-                'value') == '1';
+        return config_block.one('input[name=programmingYN]:checked').get('value') == '1';
     }
 }
