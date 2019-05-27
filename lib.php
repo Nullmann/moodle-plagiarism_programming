@@ -68,8 +68,8 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         global $DB, $PAGE;
 
         // When updating an assignment, cmid of the assignment is passed by "update" param.
-        // When creating an assignment, cmid does not exist, but course id is provided via "course" param.
         $cmid = optional_param('update', 0, PARAM_INT);
+        // When creating an assignment, cmid does not exist, but course id is provided via "course" param.
         $courseid = optional_param('course', 0, PARAM_INT);
 
         if (!$this->is_plugin_enabled($cmid, $courseid)) {
@@ -204,7 +204,6 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
      * @return void
      */
     public function save_form_elements($data) {
-
         global $DB, $detectiontools;
 
         $cmid = $data->coursemodule;
@@ -243,10 +242,11 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
                 $context, 'plagiarism_programming', 'codeseeding', $setting->id);
 
             $datenum = $data->submit_date_num;
-            // Delete all unfinished records. They will be added again later when they are still enabled.
+
+            // Delete all unfinished scan dates.
             $DB->delete_records('plagiarism_programming_date', array('settingid' => $setting->id, 'finished' => 0));
 
-            // Save dates.
+            // Save scan dates again.
             for ($i = 0; $i < $datenum; $i++) {
                 if (isset($data->scan_date[$i]) && $data->scan_date[$i] > 0) {
                     $scandateobj = new stdClass();
@@ -588,7 +588,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         }
         $dbscandate = count($scandates);
 
-        $datenum = optional_param('submit_date_num', max($dbscandate, 1), PARAM_INT); // Position for new scan date
+        $datenum = optional_param('submit_date_num', max($dbscandate, 1), PARAM_INT); // Amount of dates to be displayed and saved.
         $isadddate = optional_param('add_new_date', '', PARAM_TEXT); // Add another form element if new date button was pushed.
 
         if (!empty($isadddate)) { // The hidden element, combined with javascript, makes the form jump to the date position.
@@ -608,13 +608,13 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             if ($scandate->finished) {
                 $name = "scan_date_finished[$i]";
                 $mform->addElement('date_time_selector', $name, get_string('scan_date_finished', 'plagiarism_programming'),
-                        null, array('disabled' => 'disabled'));
+                    null, array('disabled' => 'disabled'));
                 $constantvars[$name] = $scandate->scan_date;
                 $mform->addHelpButton($name, 'date_selector_finished_hlp', 'plagiarism_programming');
             } else {
                 $name = "scan_date[$i]";
                 $mform->addElement('date_time_selector', "scan_date[$i]", get_string('scan_date', 'plagiarism_programming'),
-                    array('optional' => true));
+                    array('optional' => true, 'step' => 5));
                 $mform->disabledIf($name, 'programmingYN', 'eq', 0);
                 $mform->addHelpButton($name, 'date_selector_hlp', 'plagiarism_programming');
             }
@@ -625,7 +625,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
 
         for ($i = $dbscandate; $i < $datenum; $i++) {
             $mform->addElement('date_time_selector', "scan_date[$i]", get_string('scan_date', 'plagiarism_programming'),
-                array('optional' => true));
+                array('optional' => true, 'step' => 5));
             $mform->addHelpButton("scan_date[$i]", 'date_selector_hlp', 'plagiarism_programming');
         }
 

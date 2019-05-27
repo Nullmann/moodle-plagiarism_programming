@@ -28,6 +28,29 @@ M.plagiarism_programming.assignment_setting = {
             config_block = Y.one('#id_programming_header');
         }
 
+        // Add delete buttons for each activatable scan date.
+        var enabled_chk = config_block.all('input[type=checkbox][name*=scan_date]');
+        // If we can delete php and use mandatory date pickers: .all('[name*=scan_date\\[][name*=day'); .
+        enabled_chk._nodes.forEach(function (item, index) {
+            var deleteIcon = document.createElement('a');
+            deleteIcon.innerHTML = ('<a class="d-inline-block col-form-label availability-delete p-x-1" href="" title="Delete" role="button">'
+                    + '<img src="' + M.util.image_url('t/delete', 'core') + '" alt="Delete"></a>');
+            item.parentNode.appendChild(deleteIcon);
+
+            deleteIcon.onclick = function(e) { 
+                e.preventDefault();
+                var node = this;
+                // Iterate over all Nodes until the whole row is selected, then delete it.
+                while (node.parentNode) {
+                    if (node.parentNode.firstElementChild.id == "fgroup_id_similarity_checking") {
+                        node.parentNode.removeChild(node);
+                        break;
+                    }
+                    node = node.parentNode;
+                }
+            };
+        });
+
         var skipClientValidation = false;
         Y.one('#mform1').on('submit', function (e) {
             if (skipClientValidation) {
@@ -64,17 +87,14 @@ M.plagiarism_programming.assignment_setting = {
             if (!config_block) {
                 config_block = Y.one('#id_programming_header');
             }
-            var selected_tool = config_block
-                    .one('input[name*=detection_tools]:checked');
+            var selected_tool = config_block.one('input[name*=detection_tools]:checked');
             if (selected_tool == null) {
                 // Whether exist an error message or not?
-                var tool_checkbox = config_block
-                        .one('input[name*=detection_tools]');
-                M.plagiarism_programming.assignment_setting
-                        .display_error_message(
-                                Y,
-                                tool_checkbox,
-                                M.str.plagiarism_programming.no_tool_selected_error)
+                var tool_checkbox = config_block.one('input[name*=detection_tools]');
+                M.plagiarism_programming.assignment_setting.display_error_message(
+                    Y,
+                    tool_checkbox,
+                    M.str.plagiarism_programming.no_tool_selected_error)
                 return false;
             }
         }
@@ -102,13 +122,13 @@ M.plagiarism_programming.assignment_setting = {
         var count_finished_scan_dates = config_block.all('[name*=scan_date_finished]').size() / 6;
 
         for (var i = count_finished_scan_dates; i < count_finished_scan_dates + count_activatable_scan_dates; i++) {
-            var enabled = config_block._node.elements.namedItem("scan_date\["+i+"\]\[enabled\]").value;
+            var enabled = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]").value;
             if (enabled) {
-                var day = config_block._node.elements.namedItem("scan_date\["+i+"\]\[day\]").value;
-                var hour = config_block._node.elements.namedItem("scan_date\["+i+"\]\[hour\]").value;
-                var minute = config_block._node.elements.namedItem("scan_date\["+i+"\]\[minute\]").value;
-                var month = config_block._node.elements.namedItem("scan_date\["+i+"\]\[month\]").value;
-                var year = config_block._node.elements.namedItem("scan_date\["+i+"\]\[year\]").value;
+                var day = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[day\]").value;
+                var hour = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[hour\]").value;
+                var minute = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[minute\]").value;
+                var month = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[month\]").value;
+                var year = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[year\]").value;
 
                 // Javascript starts counting in January with 0.
                 var date = new Date(year, month - 1, day, hour, minute);
@@ -116,7 +136,7 @@ M.plagiarism_programming.assignment_setting = {
                 if (date < current_date) {
                     M.plagiarism_programming.assignment_setting.display_error_message(
                         Y,
-                        //config_block._node.elements.namedItem("scan_date\["+i+"\]\[enabled\]"),
+                        //config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]"),
                         M.str.plagiarism_programming.invalid_submit_date_error);
                     all_valid = false;
                 }
@@ -132,13 +152,15 @@ M.plagiarism_programming.assignment_setting = {
 
         /* TODO: Fieldset does not work because dataset is used differently now
          
-         Find a better solution while (node!=null &&
-         node.get('tagName')!='FIELDSET') { node = node.get('parentNode'); }
-         if (node!=null && node.get('tagName')=='FIELDSET' &&
-         node.all('.error').isEmpty()) { // insert the message var msg_node =
-         Y.Node.create('<span class="error">'+error_msg+'<br></span>');
-         node.get('children').item(0).insert(msg_node,'before');
-         window.scrollTo(0, msg_node.getY()-40); }
+         while (node!=null && node.get('tagName')!='FIELDSET') { 
+             node = node.get('parentNode'); 
+         }
+         if (node!=null && node.get('tagName')=='FIELDSET' && node.all('.error').isEmpty()) {
+             // Insert the message.
+             var msg_node = Y.Node.create('<span class="error">'+error_msg+'<br></span>');
+             node.get('children').item(0).insert(msg_node,'before');
+             window.scrollTo(0, msg_node.getY()-40);
+         }
          */
     },
 
@@ -170,10 +192,8 @@ M.plagiarism_programming.assignment_setting = {
             if (moss_lang && moss_lang[value]) {
                 moss_disabled = false;
             }
-            Y.one('input[type=checkbox][name=detection_tools\\[jplag\\]]').set(
-                    'disabled', jplag_disabled);
-            Y.one('input[type=checkbox][name=detection_tools\\[moss\\]]').set(
-                    'disabled', moss_disabled);
+            Y.one('input[type=checkbox][name=detection_tools\\[jplag\\]]').set('disabled', jplag_disabled);
+            Y.one('input[type=checkbox][name=detection_tools\\[moss\\]]').set('disabled', moss_disabled);
         }
     },
 
