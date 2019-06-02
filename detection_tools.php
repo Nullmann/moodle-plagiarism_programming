@@ -24,6 +24,7 @@
 defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
 
 global $detectiontools;
+/*
 $detectiontools['jplag'] = array (
     'name' => 'JPlag',
     'code_file' => 'jplag_tool.php',
@@ -32,6 +33,7 @@ $detectiontools['jplag'] = array (
     'check_handler' => 'jplag_check_result',
     'display_report_handle' => 'jplag_display_report_link'
 );
+*/
 $detectiontools['moss'] = array (
     'name' => 'MOSS',
     'code_file' => 'moss_tool.php',

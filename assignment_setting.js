@@ -120,7 +120,7 @@ M.plagiarism_programming.assignment_setting = {
         var count_activatable_scan_dates = config_block.all('input[type=checkbox][name*=scan_date]').size();
         // Divide by 6 because every date time picker has 5 entry fileds + calendar picker.
         var count_finished_scan_dates = config_block.all('[name*=scan_date_finished]').size() / 6;
-
+/*
         for (var i = count_finished_scan_dates; i < count_finished_scan_dates + count_activatable_scan_dates; i++) {
             var enabled = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]").value;
             if (enabled) {
@@ -143,12 +143,13 @@ M.plagiarism_programming.assignment_setting = {
 
             }
         }
+        */
         return all_valid;
     },
 
     display_error_message : function (Y, node, error_msg) {
         //window.scrollTo(0, node.getY() - 100);
-        alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
+        //alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
 
         /* TODO: Fieldset does not work because dataset is used differently now
          

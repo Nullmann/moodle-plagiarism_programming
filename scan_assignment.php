@@ -459,10 +459,9 @@ function plagiarism_programming_scan_assignment($assignment, $waitforresult = tr
         } else if ($extractresult == NOT_SUFFICIENT_SUBMISSION || $extractresult == CONTEXT_NOT_EXIST) {
             return;
         } else if ($extractresult == NOT_CORRECT_FILE_TYPE) {
-            $message = get_string('invalid_file_type', 'plagiarism_programming')
-                .implode(', ', plagiarism_programming_get_file_extension($assignment->language));
+            $message = get_string('invalid_file_type', 'plagiarism_programming').implode(', ', plagiarism_programming_get_file_extension($assignment->language));
 
-            foreach ($detectiontools as $toolname) {
+            foreach ($detectiontools as $toolname => $tool) {
                 if (!$assignment->$toolname) { // This detector is not selected.
                     continue;
                 }
