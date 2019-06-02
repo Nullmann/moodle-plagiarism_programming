@@ -86,7 +86,12 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         $mform->addElement('header', 'programming_header',  get_string('plagiarism_header', 'plagiarism_programming'));
 
         // Do not show the settings if the user is not allowed to.
-        $context = context_module::instance($cmid);
+        if ($cmid == 0) {
+            $context = context_course::instance($courseid); // Newly created assign module.
+        } else {
+            $context = context_module::instance($cmid); // Already existing assign module.
+        }
+
         if (!has_capability('plagiarism/programming:changesettings', $context)) {
             $mform->addElement('html', html_writer::tag('div', get_string('caperror_changesettings', 'plagiarism_programming')));
             return $mform;
@@ -546,11 +551,15 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
     public function is_plugin_enabled($cmid, $courseid=null) {
         global $DB;
 
-        $settings = (array) get_config('plagiarism');
-        if (!$settings['programming_use']) { // Globaly disabled.
+        $settings = (array) get_config('plagiarism_programming');
+        if ($settings['programming_use']) { // Globaly enabled.
+            return true;
+        } else {
             return false;
         }
 
+        /* Course-specific activation is not supported anymore.
+         *
         $programmingsettings = (array) get_config('plagiarism_programming');
         if ($programmingsettings['level_enabled'] == 'global') { // Globally enabled.
             return true;
@@ -562,6 +571,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             $courseid = ($coursemodule) ? $coursemodule->course : 0;
         }
         return $DB->get_record('plagiarism_programming_cours', array('course' => $courseid)) != false;
+        */
     }
 
     /**

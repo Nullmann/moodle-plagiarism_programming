@@ -52,16 +52,20 @@ M.plagiarism_programming.assignment_setting = {
         });
 
         var skipClientValidation = false;
-        Y.one('#mform1').on('submit', function (e) {
+        Y.one('[id^=mform1]').on('submit', function (e) {
+            // '[name*=scan_date_finished]'
             if (skipClientValidation) {
                 return;
             }
             var is_tool_selected = this.check_mandatory_form_field(Y);
-            // Disabled because YUI does not update when a checkbox is checked, unlike JQuery and such.
-            // var is_date_valid = this.check_submit_date(Y);
+            
+            /* Disabled because YUI does not update when a checkbox is checked, unlike JQuery and such.
+             * Should be enabled again later.
+            var is_date_valid = this.check_submit_date(Y);
             if (!is_tool_selected || !is_date_valid) {
                 e.preventDefault();
             }
+            */
         }, this);
 
         // Do not need to validate when clicking no submit button.

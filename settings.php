@@ -47,10 +47,7 @@ if ($mform->is_cancelled()) {
 } else if (($data = $mform->get_data()) && confirm_sesskey()) {
     // Update programming_use variable.
     $programminguse = (isset($data->programming_use)) ? $data->programming_use : 0;
-    set_config('programming_use', $programminguse, 'plagiarism');
-
-    // Add variables 'jplag_user', 'jplag_pass' for jplag support again.
-    $variables = array('level_enabled', 'moss_user_id', 'moss_user_id');
+    set_config('programming_use', $programminguse, 'plagiarism_programming');
 
     $email = $data->moss_email;
     if ($email) {
@@ -59,14 +56,13 @@ if ($mform->is_cancelled()) {
         preg_match($pattern, $email, $match);
         $data->moss_user_id = $match[1];
     }
-    foreach ($variables as $field) {
-        set_config($field, $data->$field, 'plagiarism_programming');
-    }
+    set_config('moss_user_id', $data->moss_user_id, 'plagiarism_programming');
+
     $notification = $OUTPUT->notification(get_string('save_config_success', 'plagiarism_programming'), 'notifysuccess');
 }
 
 $plagiarismprogrammingsetting = (array) get_config('plagiarism_programming');
-$plagiarismsettings = (array) get_config('plagiarism');
+$plagiarismsettings = (array) get_config('plagiarism_programming');
 if (isset($plagiarismsettings['programming_use'])) {
     $plagiarismprogrammingsetting['programming_use'] = $plagiarismsettings['programming_use'];
 }
