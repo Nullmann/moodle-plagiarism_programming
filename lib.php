@@ -467,8 +467,10 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         }
 
         // Add link to MOSS / stanford.
-        $content .= '<a target="_blank" href='.$scanninginfo->resultlink.'>'
-            .get_string('stanford_link', 'plagiarism_programming').'</a> <br>';
+        if ($scanninginfo->resultlink !== NULL) {
+            $content .= '<a target="_blank" href='.$scanninginfo->resultlink.'>'
+                .get_string('stanford_link', 'plagiarism_programming').'</a> <br>';
+        }
 
         // Get user's preferred language to transform time string.
         setlocale(LC_TIME, $USER->lang);
