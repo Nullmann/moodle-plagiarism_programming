@@ -52,20 +52,17 @@ M.plagiarism_programming.assignment_setting = {
         });
 
         var skipClientValidation = false;
+
         Y.one('[id^=mform1]').on('submit', function (e) {
-            // '[name*=scan_date_finished]'
             if (skipClientValidation) {
                 return;
             }
             var is_tool_selected = this.check_mandatory_form_field(Y);
             
-            /* Disabled because YUI does not update when a checkbox is checked, unlike JQuery and such.
-             * Should be enabled again later.
             var is_date_valid = this.check_submit_date(Y);
             if (!is_tool_selected || !is_date_valid) {
                 e.preventDefault();
             }
-            */
         }, this);
 
         // Do not need to validate when clicking no submit button.
@@ -121,12 +118,12 @@ M.plagiarism_programming.assignment_setting = {
         
         var all_valid = true;
         var current_date = new Date();
-        var count_activatable_scan_dates = config_block.all('input[type=checkbox][name*=scan_date]').size();
-        // Divide by 6 because every date time picker has 5 entry fileds + calendar picker.
-        var count_finished_scan_dates = config_block.all('[name*=scan_date_finished]').size() / 6;
-/*
-        for (var i = count_finished_scan_dates; i < count_finished_scan_dates + count_activatable_scan_dates; i++) {
-            var enabled = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]").value;
+
+        var count_date_time_pickers = config_block.all('[id^=fitem_id_scan_date]')._nodes.length;
+        var count_finished_scan_dates = config_block.all('[id^=fitem_id_scan_date_finished]')._nodes.length;
+        
+        for (var i = count_finished_scan_dates; i < count_date_time_pickers; i++) {
+            var enabled = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]").checked;
             if (enabled) {
                 var day = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[day\]").value;
                 var hour = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[hour\]").value;
@@ -136,24 +133,23 @@ M.plagiarism_programming.assignment_setting = {
 
                 // Javascript starts counting in January with 0.
                 var date = new Date(year, month - 1, day, hour, minute);
-
+                
                 if (date < current_date) {
                     M.plagiarism_programming.assignment_setting.display_error_message(
                         Y,
-                        //config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]"),
+                        config_block.one('[id^=fitem_id_scan_date_'), // First elements of the unfinished scan dates.
                         M.str.plagiarism_programming.invalid_submit_date_error);
                     all_valid = false;
                 }
-
             }
         }
-        */
+
         return all_valid;
     },
 
     display_error_message : function (Y, node, error_msg) {
-        //window.scrollTo(0, node.getY() - 100);
-        //alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
+        window.scrollTo(0, node.getY() - 100);
+        alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
 
         /* TODO: Fieldset does not work because dataset is used differently now
          
