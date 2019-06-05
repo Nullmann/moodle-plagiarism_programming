@@ -2,7 +2,7 @@ Copyright: 2019 Benedikt Schneider (@Nullmann), 2014 Tri (@thantri)
 
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
-# Moodle-Plagiarism_Programming [![Build Status](https://travis-ci.org/Nullmann/moodle-plagiarism_programming.svg?branch=travis_support)](https://travis-ci.org/Nullmann/moodle-plagiarism_programming)
+# Moodle-Plagiarism_Programming [![Build Status](https://travis-ci.org/Nullmann/moodle-plagiarism_programming.svg?branch=master)](https://travis-ci.org/Nullmann/moodle-plagiarism_programming)
 
 ## Revived and reworked version
 This plugin was forked from @thantri who last updated it 5 years ago. There are two major changes made to the plugin:

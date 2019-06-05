@@ -220,7 +220,7 @@ $string['scanning_complete_email_notification_body_txt'] = 'Dear {$a->recipientn
 .'You could access the similarity report by using this link: {$a->report_link}';
 
 $string['similarity_report'] = 'Similarity result report';
-$string['include_repository'] = 'Include additional code (is presented as "library")';
+$string['include_repository'] = 'Include additional code';
 $string['course_select'] = 'Select courses using code plagiarism scanning';
 $string['by_name'] = 'By name';
 $string['search'] = 'Search';
@@ -236,3 +236,26 @@ $string['caperror_markpairs'] = 'You do not have the permission to mark pairs as
 
 // Task API.
 $string['task_name'] = 'Sends scheduled scans to moss and saves the result.';
+
+// Privacy API.
+$string['privacy:metadata:plagiarism_programming_files'] = 'The source code of each student is extracted in dataroot/temp/plagiarism_report/<cmid>/<userid>/<source_code>'
+    .'and then saved in moodledata/temp/plagiarism_report/moss<cmid><version>/<userid> in which the last 20 versions are saved.';
+
+/*
+$string['privacy:metadata:plagiarism_programming_files'] = '';
+*/
+
+$string['privacy:metadata:plagiarism_programming_reslt'] = 'In the result table each comparison of every MOSS run is saved.';
+$string['privacy:plagiarism_programming_reslt:student1_id'] = 'Student 1 moodle user id';
+$string['privacy:plagiarism_programming_reslt:student2_id'] = 'Student 2 moodle user id';
+$string['privacy:plagiarism_programming_reslt:similarity1'] = 'Percentage of matching lines from code of student 1 to code of student 2';
+$string['privacy:plagiarism_programming_reslt:similarity2'] = 'Percentage of matching lines from code of student 2 to code of student 1';
+$string['privacy:plagiarism_programming_reslt:comparison'] = 'Link to sub-html of moss result';
+$string['privacy:plagiarism_programming_reslt:comments'] = 'Comments about the similarity';
+$string['privacy:plagiarism_programming_reslt:mark'] = 'If it was marked as normal or suspicious';
+
+$string['privacy:metadata:moss_stanford'] = 'The source code of each student is sent to the MOSS Web service, see http://theory.stanford.edu/~aiken/moss/';
+$string['privacy:metadata:moss_stanford:userid'] = 'The names of each folder are the students ids.';
+$string['privacy:metadata:moss_stanford:source_code'] = 'In each of these folders the uploaded source code is sent to MOSS';
+
+$string['privacy:path'] = 'plagiarism programming';

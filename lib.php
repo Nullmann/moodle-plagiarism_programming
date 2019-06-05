@@ -467,7 +467,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         }
 
         // Add link to MOSS / stanford.
-        if ($scanninginfo->resultlink !== NULL) {
+        if ($scanninginfo->resultlink !== null) {
             $content .= '<a target="_blank" href='.$scanninginfo->resultlink.'>'
                 .get_string('stanford_link', 'plagiarism_programming').'</a> <br>';
         }

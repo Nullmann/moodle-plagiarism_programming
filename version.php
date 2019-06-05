@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2019052302;
+$plugin->version = 2019060501;
 $plugin->requires = 2018120303.12; // Moodle 3.6.3+ or above. Can be lowered if you have to but was not tested on lower releases.
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = '1.3';

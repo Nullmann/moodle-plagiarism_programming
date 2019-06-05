@@ -219,7 +219,7 @@ $string['scanning_complete_email_notification_body_txt'] = 'Sehr geehrte/r {$a->
 .'Sie können auf den Ähnlichkeitsbericht zugreifen, indem Sie diesem Link folgen: {$a->report_link}';
 
 $string['similarity_report'] = 'Ähnlichkeitsbericht';
-$string['include_repository'] = 'Zusätzlichen Code inkludieren (wird als "library" angezeigt)';
+$string['include_repository'] = 'Zusätzlichen Code inkludieren';
 $string['course_select'] = 'Kurse mit Codeplagiatsprüfung auswählen';
 $string['by_name'] = 'Nach Name';
 $string['search'] = 'Suche';
