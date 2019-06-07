@@ -73,7 +73,7 @@ class provider implements
             'privacy:metadata:plagiarism_programming_reslt'
             );
 
-        // The code is uploaded to moss.stanford.edu
+        // The code is uploaded to moss.stanford.edu .
         $collection->add_external_location_link('moss_stanford', [
             'userid' => 'privacy:metadata:moss_stanford:userid',
             'source_code' => 'privacy:metadata:moss_stanford:source_code',
@@ -98,13 +98,13 @@ class provider implements
 
         // Use a union instead of 2 separate sql statements to avoid duplicates.
         $sql = "(SELECT result.student1_id AS studid
-                FROM {plagiarism_programming_reslt} AS result
-                JOIN {plagiarism_programming_rpt} AS report ON result.reportid = report.id
+                FROM {plagiarism_programming_reslt} result
+                JOIN {plagiarism_programming_rpt} report ON result.reportid = report.id
                 WHERE report.cmid = :instanceid)
                     UNION
                 (SELECT result.student2_id AS studid
-                FROM {plagiarism_programming_reslt} AS result
-                JOIN {plagiarism_programming_rpt} AS report ON result.reportid = report.id
+                FROM {plagiarism_programming_reslt} result
+                JOIN {plagiarism_programming_rpt} report ON result.reportid = report.id
                 WHERE report.cmid = :instanceid)";
 
         $userlist->add_from_sql('userid', $sql, $params);
@@ -120,7 +120,7 @@ class provider implements
      */
     public static function delete_data_for_users(approved_userlist $userlist) {
         global $DB;
-        foreach($userlist AS $user) {
+        foreach ($userlist as $user) {
             $DB->delete_records('plagiarism_programming_reslt', ['student1_id' => $user->id]);
             $DB->delete_records('plagiarism_programming_reslt', ['student2_id' => $user->id]);
         }
@@ -133,7 +133,7 @@ class provider implements
      * @param  \context $context   The context to refine the deletion.
      */
     public static function delete_plagiarism_for_users(array $userids, \context $context) {
-        foreach($userids AS $userid) {
+        foreach ($userids as $userid) {
             delete_plagiarism_for_user($userid, $context);
         }
     }
@@ -155,7 +155,7 @@ class provider implements
         $reports = $DB->get_records('plagiarism_programming_rpt', ['cmid' => $context->instanceid], '', 'id');
 
         // Delete all result rows in which the user is present.
-        foreach ($reports AS $report)  {
+        foreach ($reports as $report) {
             $params = [
                 'reportid' => $report->id,
                 'userid1' => $userid,
@@ -182,7 +182,7 @@ class provider implements
 
         // As this covers all users and not a single one, everything can be deleted, as we do not need students to compare to.
         $reports = $DB->get_records('plagiarism_programming_rpt', ['cmid' => $context->instanceid], '', 'id');
-        foreach ($reports AS $report)  {
+        foreach ($reports as $report) {
             $DB->delete_records('plagiarism_programming_reslt', ['reportid' => $report->id]);
         }
 
@@ -232,7 +232,7 @@ class provider implements
 
         $path = array_merge($subcontext, [get_string('privacy:path', 'plagiarism_programming')]);
 
-        // Write to the folder structure <assign name>/<attempt #>/<privacy:path>
+        // Write to the folder structure <assign name>/<attempt #>/<privacy:path> .
         writer::with_context($context)
             ->export_data($path, (object)$scans);
 

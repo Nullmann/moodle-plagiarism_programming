@@ -37,7 +37,7 @@ M.plagiarism_programming.assignment_setting = {
                     + '<img src="' + M.util.image_url('t/delete', 'core') + '" alt="Delete"></a>');
             item.parentNode.appendChild(deleteIcon);
 
-            deleteIcon.onclick = function(e) { 
+            deleteIcon.onclick = function(e) {
                 e.preventDefault();
                 var node = this;
                 // Iterate over all Nodes until the whole row is selected, then delete it.
@@ -58,7 +58,7 @@ M.plagiarism_programming.assignment_setting = {
                 return;
             }
             var is_tool_selected = this.check_mandatory_form_field(Y);
-            
+
             var is_date_valid = this.check_submit_date(Y);
             if (!is_tool_selected || !is_date_valid) {
                 e.preventDefault();
@@ -115,13 +115,13 @@ M.plagiarism_programming.assignment_setting = {
         if (!config_block) {
             config_block = Y.one('#id_programming_header');
         }
-        
+
         var all_valid = true;
         var current_date = new Date();
 
         var count_date_time_pickers = config_block.all('[id^=fitem_id_scan_date]')._nodes.length;
         var count_finished_scan_dates = config_block.all('[id^=fitem_id_scan_date_finished]')._nodes.length;
-        
+
         for (var i = count_finished_scan_dates; i < count_date_time_pickers; i++) {
             var enabled = config_block._node.elements.namedItem("scan_date\[" + i + "\]\[enabled\]").checked;
             if (enabled) {
@@ -133,7 +133,7 @@ M.plagiarism_programming.assignment_setting = {
 
                 // Javascript starts counting in January with 0.
                 var date = new Date(year, month - 1, day, hour, minute);
-                
+
                 if (date < current_date) {
                     M.plagiarism_programming.assignment_setting.display_error_message(
                         Y,
@@ -152,9 +152,9 @@ M.plagiarism_programming.assignment_setting = {
         alert("Plagiarism Plugin: At least one date is older than today's date. Please disable it or change the date.");
 
         /* TODO: Fieldset does not work because dataset is used differently now
-         
-         while (node!=null && node.get('tagName')!='FIELDSET') { 
-             node = node.get('parentNode'); 
+
+         while (node!=null && node.get('tagName')!='FIELDSET') {
+             node = node.get('parentNode');
          }
          if (node!=null && node.get('tagName')=='FIELDSET' && node.all('.error').isEmpty()) {
              // Insert the message.

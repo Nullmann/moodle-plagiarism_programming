@@ -32,6 +32,8 @@ require_once(__DIR__.'/scan_assignment.php');
 require_once(__DIR__.'/detection_tools.php');
 global $DB;
 
+require_login();
+
 /*
  * This global is used to store the assignment currently processed
  * to record status if an unexpected error occurs.

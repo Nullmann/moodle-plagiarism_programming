@@ -30,7 +30,7 @@ $capabilities = array(
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => array(
             // Moodle conventions says it is discouraged to use CAP_DENY, only CAP_ALLOW
-            // Possible archetypes: manager, coursecreator, editingteacher, teacher (only grading allowed; assistand or tutor), student, guest
+            // Archetypes: manager, coursecreator, editingteacher, teacher (only grading allowed; tutor), student and guest.
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
             'coursecreator' => CAP_ALLOW
