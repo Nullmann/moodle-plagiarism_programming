@@ -29,8 +29,7 @@ M.plagiarism_programming.assignment_setting = {
         }
 
         // Add delete buttons for each activatable scan date.
-        var enabled_chk = config_block.all('input[type=checkbox][name*=scan_date]');
-        // If we can delete php and use mandatory date pickers: .all('[name*=scan_date\\[][name*=day'); .
+        var enabled_chk = config_block.all('[name*=scan_date\\[][name*=calendar');
         enabled_chk._nodes.forEach(function (item, index) {
             var deleteIcon = document.createElement('a');
             deleteIcon.innerHTML = ('<a class="d-inline-block col-form-label availability-delete p-x-1" href="" title="Delete" role="button">'

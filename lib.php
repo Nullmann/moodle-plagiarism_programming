@@ -44,7 +44,7 @@ require_once(__DIR__.'/scan_assignment.php');
 class plagiarism_plugin_programming extends plagiarism_plugin {
 
     /**
-     * @var Object $filemanageroption moodle filemanager to upload and delete files.
+     * @var Object $filemanageroption Moodle filemanager to upload and delete files.
      */
     private $filemanageroption;
 
@@ -58,7 +58,8 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
 
     /**
      * Define the configuration block of plagiarism detection in assignment setting form.
-     * This method will be called by mod_assignment_mod_form class, in its definition method
+     * This method will be called by mod_assign_mod_form class, in its definition method
+     * @see mod_assign_mod_form
      *
      * @param object $mform  - Moodle form
      * @param object $context - current context
@@ -128,13 +129,13 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             get_string('programming_language', 'plagiarism_programming'), $programminglanguages);
 
         // Disable the tools when no credentials are provided.
-        $settings = get_config('plagiarism_programming');
+        $settings = get_config('plagiarism');
         $jplagdisabled = null;
         if (empty($settings->jplag_user) || empty($settings->jplag_pass)) {
             $jplagdisabled = array('disabled' => true);
         }
         $mossdisabled = null;
-        if (empty($settings->moss_user_id)) {
+        if (empty($settings->programming_moss_user_id)) {
             $mossdisabled = array('disabled' => true);
         }
 
@@ -551,9 +552,8 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
      * @return boolean
      */
     public function is_plugin_enabled($cmid, $courseid=null) {
-        global $DB;
 
-        $settings = (array) get_config('plagiarism_programming');
+        $settings = (array)get_config('plagiarism');
         if ($settings['programming_use']) { // Globaly enabled.
             return true;
         } else {
@@ -572,6 +572,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             $coursemodule = get_coursemodule_from_id('', $cmid);
             $courseid = ($coursemodule) ? $coursemodule->course : 0;
         }
+        global $DB;
         return $DB->get_record('plagiarism_programming_cours', array('course' => $courseid)) != false;
         */
     }

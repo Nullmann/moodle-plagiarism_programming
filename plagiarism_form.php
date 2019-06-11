@@ -82,11 +82,11 @@ class plagiarism_setup_form extends moodleform {
         $mform->addElement('html', html_writer::tag('div', get_string('moss_account_instruction', 'plagiarism_programming') . $mosslink));
 
         $mform->addElement('html', html_writer::tag('div', get_string('moss_id_help', 'plagiarism_programming')));
-        $mform->addElement('text', 'moss_user_id', get_string('moss_id', 'plagiarism_programming'));
-        $mform->setType('moss_user_id', PARAM_TEXT);
+        $mform->addElement('text', 'programming_moss_user_id', get_string('moss_id', 'plagiarism_programming'));
+        $mform->setType('programming_moss_user_id', PARAM_TEXT);
 
         $mform->addElement('html', html_writer::tag('div', get_string('moss_id_help_2', 'plagiarism_programming')));
-        $mform->addElement('textarea', 'moss_email', '', 'wrap="virtual" rows="20" cols="80"');
+        $mform->addElement('textarea', 'programming_moss_email', '', 'wrap="virtual" rows="20" cols="80"');
 
         // $mform->addElement('header', 'proxy_config', get_string('proxy_config', 'plagiarism_programming'));
         // $mform->addElement('text', 'proxy_host', get_string('proxy_host', 'plagiarism_programming'));
