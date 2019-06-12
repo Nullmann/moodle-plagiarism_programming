@@ -159,10 +159,20 @@ $filterforms->set_data(array(
 ));
 $filterforms->display();
 
-echo html_writer::tag('div', get_string('chart_legend', 'plagiarism_programming'));
+// Display the bar chart with links.
+echo "<br>";
+echo html_writer::tag('h2', get_string('chart_legend', 'plagiarism_programming'));
 echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype), array(
     'class' => 'programming_result_chart'
 ));
+
+// Add button to reset the table if the upper threshold is selected (a bar was clicked).
+if ($upperthreshold != 100) {
+    echo "<br>";
+    echo html_writer::tag('a', get_string('resetfilter', 'tag'), array('href' => $PAGE->url, 'class' => 'btn btn-default'));
+    echo "<br><br>";
+}
+
 echo html_writer::tag('div', html_writer::table($table), array(
     'class' => 'programming_result_table'
 ));
