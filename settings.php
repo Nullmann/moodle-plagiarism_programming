@@ -60,8 +60,6 @@ if ($mform->is_cancelled()) {
 }
 
 // Set data for form. Data taken from config.
-print_r("ASHBDASU");
-echo '<pre>'; print_r((array)get_config('plagiarism')); echo '</pre>';
 $mform->set_data((array)get_config('plagiarism'));
 
 echo $OUTPUT->header();

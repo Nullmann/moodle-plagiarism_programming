@@ -75,7 +75,7 @@ class moss_tool implements plagiarism_tool {
         global $CFG;
 
         if (!isset($this->mossstub)) {
-            $userid = get_config('plagiarism_programming', 'moss_user_id');
+            $userid = get_config('plagiarism', 'programming_moss_user_id');
             $proxyhost = isset($CFG->proxyhost) ? $CFG->proxyhost : '';
             $proxyport = isset($CFG->proxyport) ? $CFG->proxyport : '';
             $proxyuser = isset($CFG->proxyuser) ? $CFG->proxyuser : '';
