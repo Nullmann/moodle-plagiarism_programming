@@ -46,9 +46,10 @@ class programming_plag_result_form extends moodleform {
      * @param number $cmid id of course module
      * @param String $detector Either moss or jplag
      */
-    public function __construct($cmid, $detector) {
+    public function __construct($cmid, $detector, $studentid) {
         $this->cmid = $cmid;
         $this->detector = $detector;
+        $this->studentid = $studentid;
         parent::__construct(null, null, 'get');
     }
 
@@ -86,16 +87,20 @@ class programming_plag_result_form extends moodleform {
         }
         $mform->addElement('select', 'tool', get_string('detection_tool', 'plagiarism_programming'), $tools);
 
-        // Select the mode of display.
-        $displaymodes = array(
-            'group' => 'Grouping students',
-            'table' => 'Ordered table'
-        );
-        $displaymodes = array(
-            'group' => get_string('display_group', 'plagiarism_programming'),
-            'table' => get_string('display_table', 'plagiarism_programming')
-        );
-        $mform->addElement('select', 'display_mode', get_string('display_mode', 'plagiarism_programming'), $displaymodes);
+        // Only show display options when a teacher is seeing the form. A student is not allowed to see the matrix version.
+        if ($this->studentid == null) {
+            // Select the mode of display.
+            $displaymodes = array(
+                'group' => 'Grouping students',
+                'table' => 'Ordered table'
+            );
+            $displaymodes = array(
+                'group' => get_string('display_group', 'plagiarism_programming'),
+                'table' => get_string('display_table', 'plagiarism_programming')
+            );
+            $mform->addElement('select', 'display_mode', get_string('display_mode', 'plagiarism_programming'), $displaymodes);
+            $mform->addHelpButton('display_mode', 'display_mode_hlp', 'plagiarism_programming');
+        }
 
         // Select the version history.
         $reports = $DB->get_records('plagiarism_programming_rpt', array(
@@ -133,7 +138,7 @@ class programming_plag_result_form extends moodleform {
         $mform->addHelpButton('lower_threshold', 'lower_threshold_hlp', 'plagiarism_programming');
         $mform->addHelpButton('rate_type', 'rate_type_hlp', 'plagiarism_programming');
         $mform->addHelpButton('tool', 'tool_hlp', 'plagiarism_programming');
-        $mform->addHelpButton('display_mode', 'display_mode_hlp', 'plagiarism_programming');
+
         $mform->addHelpButton('version', 'version_hlp', 'plagiarism_programming');
     }
 }

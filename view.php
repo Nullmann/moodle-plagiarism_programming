@@ -30,7 +30,7 @@ global $DB, $USER, $PAGE, $OUTPUT, $CFG;
 // Standard settings when no filters are selected.
 $cmid = required_param('cmid', PARAM_INT);
 $studentid = optional_param('student', null, PARAM_TEXT);
-$lowerthreshold = optional_param('lower_threshold', 20, PARAM_FLOAT); // Rate will be above this similarity.
+$lowerthreshold = optional_param('lower_threshold', 0, PARAM_FLOAT); // Rate will be above this similarity.
 $upperthreshold = optional_param('upper_threshold', 100, PARAM_FLOAT);
 $tool = optional_param('tool', '', PARAM_TEXT);
 $reportversion = optional_param('version', -1, PARAM_INT);
@@ -45,16 +45,15 @@ if (!$coursemodule = $DB->get_record('course_modules', array(
 ))) {
     redirect($CFG->wwwroot, 'Invalid course module id');
 }
-$course = $DB->get_record('course', array(
-    'id' => $coursemodule->course
-));
+
+$course = $DB->get_record('course', array('id' => $coursemodule->course));
 if (!$course) {
     redirect($CFG->wwwroot, 'Invalid course id');
 }
 
 require_login($course, true, $coursemodule);
 
-// If the user is a student (does not have grade capability), he can only see the report on his assignment if allowed.
+// If the user is a student (does not have grade capability), he can only see the report on his assignment.
 $context = context_module::instance($cmid);
 $isteacher = has_capability('mod/assignment:grade', $context);
 if (!$isteacher) {
@@ -67,13 +66,12 @@ if (!$isteacher) {
     $studentid = $USER->id;
 }
 
+// Students can only see the table version, not the full matrix.
 if ($studentid != null) {
     $displaymode = 'table';
 }
 
-$PAGE->set_url(new moodle_url('/plagiarism/programming/view.php', array(
-    'cmid' => $cmid
-)));
+$PAGE->set_url(new moodle_url('/plagiarism/programming/view.php', array('cmid' => $cmid)));
 
 // Verify the version.
 if (!empty($tool) && $reportversion > 0) {
@@ -94,9 +92,10 @@ if (!empty($tool) && $reportversion > 0) {
     $report = plagiarism_programming_get_latest_report($cmid, $tool);
 }
 
-if (!$report) { // At this point, we don't have any report available.
+if (!$report) { // At this point, we don't have a report available.
     redirect("$CFG->wwwroot/mod/assignment/view.php?id=" . $cmid, get_string('report_not_available', 'plagiarism_programming'));
 }
+
 // Construct the query based on filtering criteria.
 if ($ratetype == 'max') {
     $similarity = 'greatest(similarity1,similarity2)';
@@ -107,6 +106,7 @@ if ($ratetype == 'max') {
 $select = "SELECT result.*, $similarity AS similarity
            FROM {plagiarism_programming_reslt} result
            WHERE reportid=:report_id AND $similarity>=:lower_threshold AND $similarity<=:upper_threshold";
+
 $params = array(
     'report_id' => $report->id,
     'lower_threshold' => $lowerthreshold,
@@ -122,9 +122,11 @@ if ($studentid != null) { // Filter by student_id.
         $params['student_id'] = $studentid;
     }
 }
+
 if (!$includerepository) {
     $select .= " AND additional_codefile_name IS NULL ";
 }
+
 $select .= ' ORDER BY similarity DESC';
 $result = $DB->get_records_sql($select, $params);
 $result = plagiarism_programming_transform_similarity_pair($result);
@@ -145,7 +147,7 @@ $PAGE->set_heading($header);
 $PAGE->navbar->add($header);
 echo $OUTPUT->header();
 
-$filterforms = new programming_plag_result_form($cmid, $tool);
+$filterforms = new programming_plag_result_form($cmid, $tool, $studentid);
 $filterforms->set_data(array(
     'cmid' => $cmid,
     'student' => $studentid,
