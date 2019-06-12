@@ -98,8 +98,8 @@ $string['date_selector_hlp_help'] = 'Select the date that the submissions will b
 $string['date_selector_finished_hlp'] = '';
 $string['date_selector_finished_hlp_help'] = 'This scan was finished and can not be changed anymore. See the report in grading view.';
 $string['auto_publish_hlp'] = '';
-$string['auto_publish_hlp_help'] = 'Allow the students to see the plagiarism report.'
-    .' They can see the similarity percentage but neither their code of nor their names.';
+$string['auto_publish_hlp_help'] = 'Allow the students to see the plagiarism report. They can only see the percentages'
+    .', neither the code nor the names of other students. Also marking a pair as supicious or normal is not shown to students.';
 $string['notification_hlp'] = '';
 $string['notification_hlp_help'] = 'Notify the student that their submission will be scanned for plagiarism';
 $string['programming_language_missing'] = 'Programming language is required';
@@ -240,10 +240,6 @@ $string['task_name'] = 'Sends scheduled scans to moss and saves the result.';
 // Privacy API.
 $string['privacy:metadata:plagiarism_programming_files'] = 'The source code of each student is extracted in dataroot/temp/plagiarism_report/<cmid>/<userid>/<source_code>'
     .'and then saved in moodledata/temp/plagiarism_report/moss<cmid><version>/<userid> in which the last 20 versions are saved.';
-
-/*
-$string['privacy:metadata:plagiarism_programming_files'] = '';
-*/
 
 $string['privacy:metadata:plagiarism_programming_reslt'] = 'In the result table each comparison of every MOSS run is saved.';
 $string['privacy:plagiarism_programming_reslt:student1_id'] = 'Student 1 moodle user id';

@@ -33,6 +33,7 @@ define('BAR_WIDTH', 20);
 
 /**
  * Create the similarity table in grouping mode, in which each row lists all the similarity rate of a student to all others.
+ * This was renamed to matrix mode in version 2.
  *
  * @param Array $list A list of records of plagiarism_programming_reslt table (in DESC order) for the selected detector.
  *            Not altered by the function. Passed by reference for performance only.
@@ -161,8 +162,11 @@ function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $
 
         $row->cells[] = $cell;
 
-        $mark = $pair->mark;
-        $row->attributes['class'] = ($mark == 'Y') ? 'suspicious' : (($mark == 'N') ? 'normal' : '');
+        // Do not show the mark as suspicious or normal if a student is seeing the table.
+        if ($isteacher) {
+            $mark = $pair->mark;
+            $row->attributes['class'] = ($mark == 'Y') ? 'suspicious' : (($mark == 'N') ? 'normal' : '');
+        }
 
         $table->data[] = $row;
     }

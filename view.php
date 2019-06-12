@@ -136,7 +136,7 @@ $studentnames = null;
 plagiarism_programming_create_student_lookup_table($result, $isteacher, $studentnames, $coursemodule->course);
 
 if ($displaymode == 'group') {
-    $table = plagiarism_programming_create_table_grouping_mode($result, $studentnames);
+    $table = plagiarism_programming_create_table_grouping_mode($result, $studentnames); // Matrix mode.
 } else {
     $table = plagiarism_programming_create_table_list_mode($result, $studentnames, $studentid, $isteacher);
 }
@@ -167,7 +167,7 @@ echo html_writer::tag('h2', get_string('chart_legend', 'plagiarism_programming')
 ));
 
 // Add button to reset the table if the upper threshold is selected (a bar was clicked).
-if ($upperthreshold != 100) {
+if ($upperthreshold != 100 OR $lowerthreshold != 0) {
     echo "<br>";
     echo html_writer::tag('a', get_string('resetfilter', 'tag'), array('href' => $PAGE->url, 'class' => 'btn btn-default'));
     echo "<br><br>";

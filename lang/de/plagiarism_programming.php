@@ -99,7 +99,7 @@ $string['date_selector_hlp_help'] = 'Wählen Sie das Datum, an dem die Beiträge
     $string['date_selector_finished_hlp_help'] = 'Dieser Scan wurde bereits beendet und kann nicht mehr verändert werden. Den Bericht können Sie in der Bewertungs-Ansicht einsehen.';
 $string['auto_publish_hlp'] = '';
 $string['auto_publish_hlp_help'] = 'Den Studenten erlauben, den Plagiatbericht zu sehen'
-    .'Sie können die Ähnlichkeitsprozente sehen, aber weder den Code noch die Namen anderer Studierender';
+    .'Sie können die Ähnlichkeitsprozente sehen, aber weder den Code noch die Namen anderer Studierender. Außerdem werden markierte Paare nicht rot oder grün hinterlegt.';
 $string['notification_hlp'] = '';
 $string['notification_hlp_help'] = 'Benachrichtigen Sie die Studierenden, dass seine Einreichung auf Plagiate Überprüft wird';
 $string['programming_language_missing'] = 'Programmiersprache ist erforderlich';
