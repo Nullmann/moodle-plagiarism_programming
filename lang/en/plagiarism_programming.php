@@ -246,7 +246,7 @@ $string['privacy:plagiarism_programming_reslt:student1_id'] = 'Student 1 moodle 
 $string['privacy:plagiarism_programming_reslt:student2_id'] = 'Student 2 moodle user id';
 $string['privacy:plagiarism_programming_reslt:similarity1'] = 'Percentage of matching lines from code of student 1 to code of student 2';
 $string['privacy:plagiarism_programming_reslt:similarity2'] = 'Percentage of matching lines from code of student 2 to code of student 1';
-$string['privacy:plagiarism_programming_reslt:comparison'] = 'Link to sub-html of moss result';
+$string['privacy:plagiarism_programming_reslt:comparison'] = 'Link to sub-html of moss result (e.g. http://moss.stanford.edu/results/XXXXXX/match0.html)';
 $string['privacy:plagiarism_programming_reslt:comments'] = 'Comments about the similarity';
 $string['privacy:plagiarism_programming_reslt:mark'] = 'If it was marked as normal or suspicious';
 

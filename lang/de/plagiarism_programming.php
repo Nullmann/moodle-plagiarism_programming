@@ -235,3 +235,22 @@ $string['caperror_markpairs'] = 'Sie haben nicht die Berechtigung, Paare als nor
 
 // Task API.
 $string['task_name'] = 'Sendet geplante Scans an Moss und speichert das Ergebnis.';
+
+// Privacy API.
+$string['privacy:metadata:plagiarism_programming_files'] ='Der Quellcode jedes Studenten wird in dataroot/temp/plagiarism_report/<cmid>/<userid>/<source_code> extrahiert.'
+.'und dann in moodledata/temp/plagiarism_report/moss<cmid><version>/<userid> gespeichert, in welchem die letzten 20 Versionen gespeichert sind.';
+
+$string['privacy:metadata:plagiarism_programming_reslt'] ='In der Ergebnistabelle wird jeder Vergleich jedes MOSS-Durchlaufs gespeichert';
+$string['privacy:plagiarism_programming_reslt:student1_id'] ='Student 1 moodle Nutzer id';
+$string['privacy:plagiarism_programming_reslt:student2_id'] ='Student 2 moodle Nutzer id';
+$string['privacy:plagiarism_programming_reslt:similarity1'] ='Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 1 zum Code des Studenten 2';
+$string['privacy:plagiarism_programming_reslt:similarity2'] ='Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 2 zum Code des Studenten 1';
+$string['privacy:plagiarism_programming_reslt:comparison'] ='Link zum Unter-HTML der Moss-Seite (z.B. http://moss.stanford.edu/results/XXXXXX/match0.html)';
+$string['privacy:plagiarism_programming_reslt:comments'] ='Kommentare über die Ähnlichkeit';
+$string['privacy:plagiarism_programming_reslt:mark'] ='Ob das Paar als normal oder verdächtig markiert wurde';
+
+$string['privacy:metadata:moss_stanford'] ='Der Quellcode jedes Studenten wird an den MOSS-Webservice gesendet, siehe http://theory.stanford.edu/~aiken/moss/';
+$string['privacy:metadata:moss_stanford:userid'] ='Die Namen der einzelnen Ordner sind die Studenten-IDs';
+$string['privacy:metadata:moss_stanford:source_code'] ='In jedem dieser Ordner wird der hochgeladene Quellcode an MOSS gesendet';
+
+$string['privacy:path'] ='Quellcode-Plagiarismus-Plugin';
