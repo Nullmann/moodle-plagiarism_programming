@@ -205,7 +205,7 @@ $string['stanford_link'] = 'Original Bericht auf stanford.edu';
 $string['max_similarity'] = 'Maximale Ähnlichkeit';
 $string['avg_similarity'] = 'Durchschnittliche Ähnlichkeit';
 $string['suspicious'] = 'verdächtig';
-$string['no_similarity'] = 'Keine Ähnlichkeit';
+$string['no_similarity'] = 'Keine Ähnlichkeit, neue Abgabe oder Fehler beim Scannen';
 $string['error_falseresponse'] = '(Moss) Server Antwort war false. Sie müssen erneut einen Scan starten, außer dies ist ein task.';
 
 $string['scanning_complete_email_notification_subject'] = '{$a->course_short_name} {$a->assignment_name}: Ähnlichkeitsprüfung verfügbar';

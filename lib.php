@@ -288,8 +288,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
     public function get_links($linkarray) {
         global $DB;
 
-        // These static variables are for caching.
-        // As this function will be called a lot of time in grade listing.
+        // These static variables are for caching, since this function will be called a lot in grade listing.
         static $students = null, $context = null, $canshow = null;
 
         $cmid = $linkarray['cmid'];
@@ -298,23 +297,21 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         if ($canshow == null) { // Those computed values are cached in static variables and reused.
             $canshow = $this->is_plugin_enabled($cmid);
             if ($canshow) {
-                $setting = $DB->get_record('plagiarism_programming', array('cmid' => $cmid));
-                $canshow = $setting != null;
-            }
-            if ($canshow) {
-                if ($setting->moss) {
-                    $mossparam = $DB->get_record('plagiarism_programming_moss', array('settingid' => $setting->id));
+                $settings = $DB->get_record('plagiarism_programming', array('cmid' => $cmid));
+                $canshow = $settings != null;
+
+                if ($settings->moss) {
+                    $mossparam = $DB->get_record('plagiarism_programming_moss', array('settingid' => $settings->id));
                 }
-                if ($setting->jplag) {
-                    $jplagparam = $DB->get_record('plagiarism_programming_jplag', array('settingid' => $setting->id));
+                if ($settings->jplag) {
+                    $jplagparam = $DB->get_record('plagiarism_programming_jplag', array('settingid' => $settings->id));
                 }
                 $canshow = (isset($mossparam) && $mossparam->status == 'finished') ||
                     (isset($jplagparam) && $jplagparam->status == 'finished');
-            }
-            if ($canshow) {
+
                 $context = context_module::instance($cmid);
                 $isteacher = has_capability('mod/assignment:grade', $context);
-                $canshow = $isteacher || ($setting->auto_publish && has_capability('mod/assignment:view', $context));
+                $canshow = $isteacher || ($settings->auto_publish && has_capability('mod/assignment:view', $context));
 
                 if ($isteacher) {
                     $students = plagiarism_programming_get_students_similarity_info($cmid);
@@ -330,6 +327,8 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
                 $link = plagiarism_programming_get_report_link($cmid, $studentid, $students[$studentid]['detector'], 0);
                 $maxrate = round($students[$studentid]['max'], 2);
                 $output = get_string('max_similarity', 'plagiarism_programming').': '.html_writer::link($link, "$maxrate%");
+
+                // Mark as suspicious next to percentage rating.
                 if ($students[$studentid]['mark'] == 'Y') {
                     $output .= ' '.html_writer::tag('span', get_string('suspicious', 'plagiarism_programming'),
                         array('class' => 'programming_result_warning'));

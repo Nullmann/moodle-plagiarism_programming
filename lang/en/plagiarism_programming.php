@@ -205,7 +205,7 @@ $string['stanford_link'] = 'Original Report on stanford.edu';
 $string['max_similarity'] = 'Max similarity';
 $string['avg_similarity'] = 'Average similarity';
 $string['suspicious'] = 'suspicious';
-$string['no_similarity'] = 'No similarity';
+$string['no_similarity'] = 'No similarity, new submission or failed to scan.';
 $string['error_falseresponse'] = '(Moss) Server response was false. You have to trigger a new scan, except if this is a task.';
 
 $string['scanning_complete_email_notification_subject'] =
