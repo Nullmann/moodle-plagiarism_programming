@@ -26,7 +26,13 @@
     position: absolute;
     height: 20px;
     left: 0;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.programming_result_chart .bar.selected {
+    background-color: #c9c9c9;
+    position: absolute;
+    height: 20px;
+    left: 0;
 }
 
 .programming_result_chart .bar:hover {

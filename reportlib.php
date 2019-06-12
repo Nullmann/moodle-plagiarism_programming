@@ -33,7 +33,6 @@ define('BAR_WIDTH', 20);
 
 /**
  * Create the similarity table in grouping mode, in which each row lists all the similarity rate of a student to all others.
- * Used to create the similarity report
  *
  * @param Array $list A list of records of plagiarism_programming_reslt table (in DESC order) for the selected detector.
  *            Not altered by the function. Passed by reference for performance only.
@@ -100,8 +99,7 @@ function plagiarism_programming_create_table_grouping_mode(&$list, &$studentname
 }
 
 /**
- * Create the similarity table in list mode, in which pairs of students are listed in descending similarity rate
- * Used to create the similarity report
+ * Create the similarity table in list mode, in which pairs of students are listed in descending similarity rate.
  *
  * @param Object $list A list of records of plagiarism_programming_reslt table in DESC order for the selected detector.
  *            Not altered by the function.
@@ -177,7 +175,7 @@ function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $
  * @param String $similaritytype Either average (avg) or maximum (max)
  * @return String The html code for the graph
  */
-function plagiarism_programming_create_chart($reportid, $similaritytype) {
+function plagiarism_programming_create_chart($reportid, $similaritytype, $setlowerthreshold, $setupperthreshold) {
     global $DB;
 
     $select = "reportid=$reportid";
@@ -208,16 +206,18 @@ function plagiarism_programming_create_chart($reportid, $similaritytype) {
     $reporturl = new moodle_url(qualified_me());
 
     foreach ($histogram as $key => $val) {
-        $upper = $key * 10 + 10;
-        $lower = $key * 10;
+        $upper = $key * 10 + 10; // Upper threshold of current bar.
+        $lower = $key * 10; // Lower threshold of current bar.
         $range = $lower . '-' . $upper;
         $posy = (9 - $key) * (BAR_WIDTH + 5) . 'px'; // 2 is the space between bars.
         $width = ($val * $lengthratio) . 'px';
-        // Legend of the bar.
+
+        // Range of the bar (numbers to the left on the y axis).
         $div .= html_writer::tag('div', $range, array(
             'class' => 'legend',
             'style' => "top:$posy;width:40px"
         ));
+
         // The bar itself.
         $reporturl->remove_params(array(
             'upper_threshold',
@@ -231,12 +231,17 @@ function plagiarism_programming_create_chart($reportid, $similaritytype) {
         // Number of pairs.
         $left = "0px";
         if ($val > 0) {
+            $class = 'bar';
+            if ($setlowerthreshold == $lower && $setupperthreshold == $upper) {
+                $class .= ' selected'; // Add "selected" class to bar if the bounds are set.
+            }
             $div .= html_writer::link($reporturl->out(false), '', array(
-                'class' => 'bar',
+                'class' => $class,
                 'style' => "top:$posy;width:$width"
             ));
-            $left = (rtrim($width, "px") + 5) . 'px';
 
+            // The number of pairs
+            $left = (rtrim($width, "px") + 5) . 'px';
             $div .= html_writer::tag('div', $val, array(
                 'class' => 'legend',
                 'style' => "top:$posy;left:$left"
@@ -251,6 +256,7 @@ function plagiarism_programming_create_chart($reportid, $similaritytype) {
         'class' => 'legend',
         'style' => "top:$posy;left:0px"
     ));
+
     return "<div class='canvas'>$div</div>";
 }
 
