@@ -45,12 +45,12 @@ $string['proxy_host'] = 'Proxy-Adresse';
 $string['proxy_port'] = 'Proxy Port';
 $string['proxy_user'] = 'Proxy Login';
 $string['proxy_pass'] = 'Proxy Passwort';
-$string['jplag_account_error'] = 'Ungültiges JPlag-Konto - Bitte geben Sie einen richtigen Benutzernamen und das richtige Passwort an';
-$string['jplag_account_expired'] = 'Ihr Konto ist abgelaufen!';
-$string['jplag_connection_error'] = 'Kann keine Verbindung zum JPlag-Server herstellen - Bitte überprüfen Sie die Verbindung';
-$string['moss_connection_error'] = 'Kann keine Verbindung zum MOSS-Server auf Port 7690 herstellen - Bitte überprüfen Sie die Verbindung';
-$string['proxy_connection_error'] = 'Kann keine Verbindung zu MOSS über den angegebenen Proxy-Server herstellen';
-$string['moss_account_error'] = 'MOSS-Anmeldung ist ungültig. Bitte geben Sie eine gültige MOSS-Benutzerkennung in '
+$string['jplag_account_error'] = 'Fehler beim letzten Scan: Ungültiges JPlag-Konto - Bitte geben Sie einen richtigen Benutzernamen und das richtige Passwort an';
+$string['jplag_account_expired'] = 'Fehler beim letzten Scan: Ihr Konto ist abgelaufen!';
+$string['jplag_connection_error'] = 'Fehler beim letzten Scan: Kann keine Verbindung zum JPlag-Server herstellen - Bitte überprüfen Sie die Verbindung';
+$string['moss_connection_error'] = 'Fehler beim letzten Scan: Kann keine Verbindung zum MOSS-Server auf Port 7690 herstellen - Bitte überprüfen Sie die Verbindung';
+$string['proxy_connection_error'] = 'Fehler beim letzten Scan: Kann keine Verbindung zu MOSS über den angegebenen Proxy-Server herstellen';
+$string['moss_account_error'] = 'Fehler beim letzten Scan: MOSS-Anmeldung ist ungültig. Bitte geben Sie eine gültige MOSS-Benutzerkennung in '
     .'Plugins -> Plagiatsuche -> Quellcode Plagiarismus Plugin an';
 $string['moss_send_error'] = 'Beim Senden der Zuweisung an MOSS ist ein Fehler aufgetreten. '
     .'Bitte überprüfen Sie: Ihre Benutzerkennung, Ihre Server-Internetverbindung oder ob der Port 7690 zum Remote-Host gesperrt ist';
@@ -133,7 +133,7 @@ $string['start_scanning'] = 'Jetzt scannen';
 $string['rescanning'] = 'Neu scannen';
 $string['no_tool_selected'] = 'Kein Detektor wurde ausgewählt. Bitte wählen Sie mindestens einen unter MOSS und JPlag';
 $string['not_enough_submission'] = 'Nicht genügend Einreichungen zum Scannen! Es werden mindestens 2 benötigt';
-$string['scheduled_scanning'] = 'Die nächste Überprüfung ist geplant für';
+$string['scheduled_scanning'] = 'Der nächste Scan ist geplant für';
 $string['no_scheduled_scanning'] = 'Es ist kein Scan geplant!';
 $string['latestscan'] = 'Letzter Scan erfolgte um ';
 $string['manual_scheduling_help'] = 'Wenn Sie das Scannen sofort auslösen wollen (bei verspäteten Einreichungen, Verlängerung, ...), '
@@ -200,7 +200,7 @@ $string['history_char'] = 'Ähnlichkeitshistorie anzeigen';
 
 // Benachrichtigung.
 $string['high_similarity_warning'] = 'Deine Aufgabe wurde als Ähnlich mit einigen anderen markiert';
-$string['report'] = 'Bericht';
+$string['working_scan'] = 'Letzter Scan ohne Fehler';
 $string['stanford_link'] = 'Original Bericht auf stanford.edu';
 $string['max_similarity'] = 'Maximale Ähnlichkeit';
 $string['avg_similarity'] = 'Durchschnittliche Ähnlichkeit';
@@ -237,20 +237,20 @@ $string['caperror_markpairs'] = 'Sie haben nicht die Berechtigung, Paare als nor
 $string['task_name'] = 'Sendet geplante Scans an Moss und speichert das Ergebnis.';
 
 // Privacy API.
-$string['privacy:metadata:plagiarism_programming_files'] ='Der Quellcode jedes Studenten wird in dataroot/temp/plagiarism_report/<cmid>/<userid>/<source_code> extrahiert.'
+$string['privacy:metadata:plagiarism_programming_files'] = 'Der Quellcode jedes Studenten wird in dataroot/temp/plagiarism_report/<cmid>/<userid>/<source_code> extrahiert.'
 .'und dann in moodledata/temp/plagiarism_report/moss<cmid><version>/<userid> gespeichert, in welchem die letzten 20 Versionen gespeichert sind.';
 
-$string['privacy:metadata:plagiarism_programming_reslt'] ='In der Ergebnistabelle wird jeder Vergleich jedes MOSS-Durchlaufs gespeichert';
-$string['privacy:plagiarism_programming_reslt:student1_id'] ='Student 1 moodle Nutzer id';
-$string['privacy:plagiarism_programming_reslt:student2_id'] ='Student 2 moodle Nutzer id';
-$string['privacy:plagiarism_programming_reslt:similarity1'] ='Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 1 zum Code des Studenten 2';
-$string['privacy:plagiarism_programming_reslt:similarity2'] ='Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 2 zum Code des Studenten 1';
-$string['privacy:plagiarism_programming_reslt:comparison'] ='Link zum Unter-HTML der Moss-Seite (z.B. http://moss.stanford.edu/results/XXXXXX/match0.html)';
-$string['privacy:plagiarism_programming_reslt:comments'] ='Kommentare über die Ähnlichkeit';
-$string['privacy:plagiarism_programming_reslt:mark'] ='Ob das Paar als normal oder verdächtig markiert wurde';
+$string['privacy:metadata:plagiarism_programming_reslt'] = 'In der Ergebnistabelle wird jeder Vergleich jedes MOSS-Durchlaufs gespeichert';
+$string['privacy:plagiarism_programming_reslt:student1_id'] = 'Student 1 moodle Nutzer id';
+$string['privacy:plagiarism_programming_reslt:student2_id'] = 'Student 2 moodle Nutzer id';
+$string['privacy:plagiarism_programming_reslt:similarity1'] = 'Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 1 zum Code des Studenten 2';
+$string['privacy:plagiarism_programming_reslt:similarity2'] = 'Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 2 zum Code des Studenten 1';
+$string['privacy:plagiarism_programming_reslt:comparison'] = 'Link zum Unter-HTML der Moss-Seite (z.B. http://moss.stanford.edu/results/XXXXXX/match0.html)';
+$string['privacy:plagiarism_programming_reslt:comments'] = 'Kommentare über die Ähnlichkeit';
+$string['privacy:plagiarism_programming_reslt:mark'] = 'Ob das Paar als normal oder verdächtig markiert wurde';
 
-$string['privacy:metadata:moss_stanford'] ='Der Quellcode jedes Studenten wird an den MOSS-Webservice gesendet, siehe http://theory.stanford.edu/~aiken/moss/';
-$string['privacy:metadata:moss_stanford:userid'] ='Die Namen der einzelnen Ordner sind die Studenten-IDs';
-$string['privacy:metadata:moss_stanford:source_code'] ='In jedem dieser Ordner wird der hochgeladene Quellcode an MOSS gesendet';
+$string['privacy:metadata:moss_stanford'] = 'Der Quellcode jedes Studenten wird an den MOSS-Webservice gesendet, siehe http://theory.stanford.edu/~aiken/moss/';
+$string['privacy:metadata:moss_stanford:userid'] = 'Die Namen der einzelnen Ordner sind die Studenten-IDs';
+$string['privacy:metadata:moss_stanford:source_code'] = 'In jedem dieser Ordner wird der hochgeladene Quellcode an MOSS gesendet';
 
-$string['privacy:path'] ='Quellcode-Plagiarismus-Plugin';
+$string['privacy:path'] = 'Quellcode-Plagiarismus-Plugin';

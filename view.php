@@ -162,7 +162,7 @@ $filterforms->display();
 // Display the bar chart with links.
 echo "<br>";
 echo html_writer::tag('h2', get_string('chart_legend', 'plagiarism_programming'));
- echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype, $lowerthreshold, $upperthreshold), array(
+echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype, $lowerthreshold, $upperthreshold), array(
     'class' => 'programming_result_chart'
 ));
 

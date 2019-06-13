@@ -45,12 +45,12 @@ $string['proxy_host'] = 'Proxy address';
 $string['proxy_port'] = 'Proxy port';
 $string['proxy_user'] = 'Proxy login';
 $string['proxy_pass'] = 'Proxy password';
-$string['jplag_account_error'] = 'Invalid JPlag account - Please provide the correct username and password';
-$string['jplag_account_expired'] = 'Your account has expired!';
-$string['jplag_connection_error'] = 'Cannot connect to JPlag server - Please check the connection';
-$string['moss_connection_error'] = 'Cannot connect to MOSS server on port 7690 - Please check the connection';
-$string['proxy_connection_error'] = 'Cannot connect to MOSS through the specified proxy server';
-$string['moss_account_error'] = 'MOSS credential is invalid. Please provide a valid MOSS userid in '
+$string['jplag_account_error'] = 'Error during last scan: Invalid JPlag account - Please provide the correct username and password';
+$string['jplag_account_expired'] = 'Error during last scan: Your account has expired!';
+$string['jplag_connection_error'] = 'Error during last scan: Cannot connect to JPlag server - Please check the connection';
+$string['moss_connection_error'] = 'Error during last scan: Cannot connect to MOSS server on port 7690 - Please check the connection';
+$string['proxy_connection_error'] = 'Error during last scan: Cannot connect to MOSS through the specified proxy server';
+$string['moss_account_error'] = 'Error during last scan: MOSS credential is invalid. Please provide a valid MOSS userid in '
     .'Plugins -> Plagiarism Prevention -> Programming page';
 $string['moss_send_error'] = 'An error occurred while sending the assignment to MOSS. '
     .'Please check: your userid, server internet connection or whether port 7690 to remote host is blocked';
@@ -133,7 +133,7 @@ $string['start_scanning'] = 'Scan now';
 $string['rescanning'] = 'Rescan';
 $string['no_tool_selected'] = 'No detector was selected. Please select at least one among MOSS and JPlag';
 $string['not_enough_submission'] = 'Not enough submissions to scan! At least 2 are needed';
-$string['scheduled_scanning'] = 'The next scanning is scheduled on';
+$string['scheduled_scanning'] = 'The next scan is scheduled on';
 $string['no_scheduled_scanning'] = 'There is no scanning scheduled!';
 $string['latestscan'] = 'Latest scanning occurred at ';
 $string['manual_scheduling_help'] = 'If you want to trigger the scanning immediately (in case of late submissions, extension...), '
@@ -200,7 +200,7 @@ $string['history_char'] = 'Show similarity history';
 
 // Notification.
 $string['high_similarity_warning'] = 'Your assignment was found to be similar with some others\'';
-$string['report'] = 'Report';
+$string['working_scan'] = 'Latest scan without errors';
 $string['stanford_link'] = 'Original Report on stanford.edu';
 $string['max_similarity'] = 'Max similarity';
 $string['avg_similarity'] = 'Average similarity';

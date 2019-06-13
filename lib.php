@@ -438,19 +438,21 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             $scanninginfo = $DB->get_record('plagiarism_programming_'.$tool, array('settingid' => $setting->id));
 
             $info = $scanninginfo->status;
+            include_once($toolinfo['code_file']);
+            $classname = $toolinfo['class_name']; // Either jplag_tool or moss_tool.
+
+            $toolclass = new $classname();
             switch ($scanninginfo->status) {
                 case null:
                 case 'pending':
-                        $info = get_string('pending', 'plagiarism_programming');
+                    $info = get_string('pending', 'plagiarism_programming');
                     break;
                 case 'finished':
-                    include_once($toolinfo['code_file']);
-                    $classname = $toolinfo['class_name'];
-                    $toolclass = new $classname();
                     $info = $toolclass->display_link($setting);
                     break;
                 case 'error':
-                    $info = "Error: $scanninginfo->message";
+                    $info = $scanninginfo->message;
+                    $info .= "<br>".get_string('working_scan', 'plagiarism_programming').": ".$toolclass->display_link($setting);
                     break;
             }
 
