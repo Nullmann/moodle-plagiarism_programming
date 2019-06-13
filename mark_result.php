@@ -47,13 +47,14 @@ if ($task == 'mark') {
     $ratetype = optional_param('rate_type', 'avg', PARAM_TEXT);
     $similarityhistory = plagiarism_programming_get_student_similarity_history($resultrecord, 'asc');
     $history = array();
+    setlocale(LC_TIME, current_language()); // For date output in time_text.
     if ($ratetype == 'avg') {
         $i = 0;
         foreach ($similarityhistory as $pair) {
             $history[$pair->id] = array(
                 'time' => $pair->time_created,
                 'similarity' => floor(($pair->similarity1 + $pair->similarity2) / 2),
-                'time_text' => date('d M', $pair->time_created)
+                'time_text' =>strftime('%d %b', $pair->time_created)
             );
             $i++;
             if ($i == 6) {
@@ -67,7 +68,7 @@ if ($task == 'mark') {
             $history[$pair->id] = array(
                 'time' => $pair->time_created,
                 'similarity' => floor(max($pair->similarity1, $pair->similarity2)),
-                'time_text' => date('d M', $pair->time_created)
+                'time_text' =>strftime('%d %b', $pair->time_created)
             );
             $i++;
             if ($i == 6) {

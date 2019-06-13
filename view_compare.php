@@ -168,9 +168,8 @@ $content .= html_writer::empty_tag('img', array(
 $similarityhistory = plagiarism_programming_get_student_similarity_history($resultrecord);
 $reportselect = array();
 
-global $USER;
 // Get user's preferred language to transform time string.
-setlocale(LC_TIME, $USER->lang);
+setlocale(LC_TIME, current_language());
 foreach ($similarityhistory as $pair) {
     $reportselect[$pair->id] = strftime("%c", $pair->time_created);
 }

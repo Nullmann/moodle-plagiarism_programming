@@ -109,9 +109,8 @@ class programming_plag_result_form extends moodleform {
         ), 'time_created DESC');
         $reportselect = array();
 
-        global $USER;
         // Get user's preferred language to transform time string.
-        setlocale(LC_TIME, $USER->lang);
+        setlocale(LC_TIME, current_language());
         foreach ($reports as $report) {
             $reportselect[$report->version] = strftime("%c", $report->time_created);
         }

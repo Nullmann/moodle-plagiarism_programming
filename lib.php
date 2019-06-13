@@ -475,7 +475,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         }
 
         // Get user's preferred language to transform time string.
-        setlocale(LC_TIME, $USER->lang);
+        setlocale(LC_TIME, current_language());
         if ($setting->latestscan) {
             $content .= get_string('latestscan', 'plagiarism_programming').' '.strftime("%c", $setting->latestscan);
         }
