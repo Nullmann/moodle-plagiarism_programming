@@ -547,12 +547,14 @@ function plagiarism_programming_get_student_similarity_history($result, $timesor
               JOIN {plagiarism_programming_reslt} result
                 ON (report.id = result.reportid)
              WHERE report.cmid=:cmid AND report.detector=:detector ";
+
     if ($result->additional_codefile_name === null) {
         $sql .= " AND result.additional_codefile_name IS NULL ";
     } else {
         $sql .= " AND result.additional_codefile_name = :addtional_name ";
         $params['addtional_name'] = $result->additional_codefile_name;
     }
+
     $sql .= " AND ((result.student1_id=:student1_id1 AND result.student2_id=:student2_id1)
               OR  (result.student1_id=:student2_id2 AND result.student2_id=:student1_id2))
         ORDER BY time_created $timesort";
@@ -565,6 +567,7 @@ function plagiarism_programming_get_student_similarity_history($result, $timesor
         'student2_id1' => $result->student2_id,
         'student2_id2' => $result->student2_id
     );
+
     $pairs = $DB->get_records_sql($sql, $params);
     return $pairs;
 }

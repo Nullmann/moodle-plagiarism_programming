@@ -61,6 +61,7 @@ if ($task == 'mark') {
             }
         }
     } else {
+        // Else the ratetype is max.
         $i = 0;
         foreach ($similarityhistory as $pair) {
             $history[$pair->id] = array(

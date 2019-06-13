@@ -46,10 +46,11 @@ M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 3
     this.history_overlay = new Y.Overlay({});
 }, show_chart : function (img, Y) {
     var pair_id = Y.one(img).get('parentNode').getAttribute('pair');
-    Y.io('mark_result.php?task=get_history&id=' + pair_id, { on : { success : function (id, response) {
+    rate_type = document.getElementById("id_rate_type").value; // Either avg or max.
+    Y.io('mark_result.php?task=get_history&rate_type=' + rate_type + '&id=' + pair_id, { on : { success : function (id, response) {
         var div = M.plagiarism_programming.view_report.load_overlay(response, Y)
         var history_overlay = M.plagiarism_programming.view_report.history_overlay;
-        history_overlay.align(img, [ Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TR ])
+        history_overlay.align(img, [ Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TR ]);
         history_overlay.set('bodyContent', div);
         history_overlay.render(document.body)
         history_overlay.show();
@@ -62,17 +63,23 @@ M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 3
     var left = 20;
     var h_label = Y.Node.create('<label class="h_label">' + M.str.moodle.date + '</label>');
     var v_label = Y.Node.create('<label class="v_label">%</label>');
-    var title = Y.Node.create('<label class="title">' + M.str.plagiarism_programming.similarity_history + '</label>')
+    //var title = Y.Node.create('<label class="title">' + M.str.plagiarism_programming.similarity_history + '</label>')
     canvas.append(h_label);
     canvas.append(v_label);
-    canvas.append(title);
-    for (var i in history) {
+    //canvas.append(title);
+    for (var i in history) { // Draw every bar.
+
+        // Draw a bar.
         var bar = Y.Node.create('<a class="bar" href="view_compare.php?id=' + i + '"/>');
         bar.setStyles({ height : (history[i].similarity / 100 * canvas_height) + 'px', left : left + 'px' });
         canvas.append(bar);
+
+        // Draw the similarity percentage.
         var label = Y.Node.create('<label>' + history[i].similarity + '%</label>');
         label.setStyles({ left : left + 'px', bottom : (history[i].similarity / 100 * canvas_height + 5) + 'px' });
         canvas.append(label);
+
+        // Draw the date.
         label = Y.Node.create('<label>' + history[i].time_text + '</label>');
         label.setStyles({ left : left + 'px', bottom : '-35px' })
         canvas.append(label);
