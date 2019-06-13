@@ -107,25 +107,27 @@ function plagiarism_programming_create_table_grouping_mode(&$list, &$studentname
  *            Passed by reference for performance only
  * @param Array $studentnames Associative array id=>name of the students in this assignment. Not altered by the function.
  *            Passed by reference for performance only
- * @param Number $anchor ID of anchor student. If anchor is specified, the anchored student will always appear on the left.
+ * @param Number $anchorstudentid ID of anchor student. If anchor is specified, the anchored student will always appear on the left.
  * @param Boolean $isteacher
  * @return $table The html_table object.
  */
-function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $anchor = null, $isteacher) {
+function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $anchorstudentid = null, $isteacher) {
     $table = new html_table();
     $table->attributes['class'] = 'plagiarism_programming_result_table generaltable';
     $rownum = 1;
 
     foreach ($list as $pair) {
 
-        $student1 = $studentnames[$pair->student1_id];
-        $student2 = $studentnames[$pair->student2_id];
-        if ($anchor && $anchor != $pair->student1_id) {
-            $temp = $student1;
-            $student1 = $student2;
-            $student2 = $temp;
+        // If an anchor is specified and the anchor is the 2nd student, make the anchor student1.
+        if ($anchorstudentid && $anchorstudentid != $pair->student1_id) {
+            $temp = $pair->student1_id;
+            $pair->student1_id = $pair->student2_id;
+            $pair->student2_id = $temp;
             unset($temp);
         }
+
+        $student1name = $studentnames[$pair->student1_id];
+        $student2name = $studentnames[$pair->student2_id];
 
         $row = new html_table_row();
 
@@ -134,19 +136,15 @@ function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $
 
         // First Row, student 1.
         $cell = new html_table_cell();
-        if ($isteacher) {
-            $cell->text = plagiarism_programming_create_student_link($student1, $pair->student1_id);
-        } else {
-            $cell->text = $student1;
-        }
+        $cell->text = $student1name;
         $row->cells[] = $cell;
 
         // Second Row, student 2.
         $cell = new html_table_cell();
         if ($isteacher) {
-            $cell->text = plagiarism_programming_create_student_link($student2, $pair->student1_id);
+            $cell->text = plagiarism_programming_create_student_link($student2name, $pair->student2_id);
         } else {
-            $cell->text = $student2;
+            $cell->text = $student2name;
         }
         $row->cells[] = $cell;
 
@@ -306,8 +304,8 @@ function plagiarism_programming_create_student_lookup_table(&$resulttable, $iste
  * @return string
  */
 function plagiarism_programming_create_student_link($studentname, $studentid) {
-    $reporturl = me();
-    return html_writer::link("$reporturl&student=$studentid", $studentname, array(
+    global $PAGE;
+    return html_writer::link("$PAGE->url&student=$studentid", $studentname, array(
         'class' => 'plagiarism_programming_student_link'
     ));
 }

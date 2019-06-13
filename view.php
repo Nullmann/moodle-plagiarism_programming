@@ -66,8 +66,8 @@ if (!$isteacher) {
     $studentid = $USER->id;
 }
 
-// Students can only see the table version, not the full matrix.
 if ($studentid != null) {
+    // Students are only allowed to see table mode, not matrix mode.
     $displaymode = 'table';
 }
 
@@ -113,7 +113,7 @@ $params = array(
     'upper_threshold' => $upperthreshold
 );
 
-if ($studentid != null) { // Filter by student_id.
+if ($studentid != null) { // Filter by studentid if the user is a student.
     if (ctype_digit($studentid)) {
         $select .= " AND (student1_id=:student1_id OR student2_id=:student2_id)";
         $params['student1_id'] = $params['student2_id'] = $studentid;
@@ -147,7 +147,7 @@ $PAGE->set_heading($header);
 $PAGE->navbar->add($header);
 echo $OUTPUT->header();
 
-$filterforms = new programming_plag_result_form($cmid, $tool, $studentid);
+$filterforms = new programming_plag_result_form($cmid, $tool, $isteacher);
 $filterforms->set_data(array(
     'cmid' => $cmid,
     'student' => $studentid,
@@ -159,15 +159,17 @@ $filterforms->set_data(array(
 ));
 $filterforms->display();
 
-// Display the bar chart with links.
-echo "<br>";
-echo html_writer::tag('h2', get_string('chart_legend', 'plagiarism_programming'));
-echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype, $lowerthreshold, $upperthreshold), array(
-    'class' => 'programming_result_chart'
-));
+if($isteacher) {
+    // Display the bar chart with links.
+    echo "<br>";
+    echo html_writer::tag('h2', get_string('chart_legend', 'plagiarism_programming'));
+    echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype, $lowerthreshold, $upperthreshold), array(
+        'class' => 'programming_result_chart'
+    ));
+}
 
-// Add button to reset the table if the upper threshold is selected (a bar was clicked).
-if ($upperthreshold != 100 OR $lowerthreshold != 0) {
+// Add button to reset the table if it was filtered in any way.
+if ($upperthreshold != 100 OR $lowerthreshold != 0 OR ($studentid && $isteacher)) {
     echo "<br>";
     echo html_writer::tag('a', get_string('resetfilter', 'tag'), array('href' => $PAGE->url, 'class' => 'btn btn-default'));
     echo "<br><br>";

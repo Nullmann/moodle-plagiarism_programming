@@ -46,10 +46,10 @@ class programming_plag_result_form extends moodleform {
      * @param number $cmid id of course module
      * @param String $detector Either moss or jplag
      */
-    public function __construct($cmid, $detector, $studentid) {
+    public function __construct($cmid, $detector, $isteacher) {
         $this->cmid = $cmid;
         $this->detector = $detector;
-        $this->studentid = $studentid;
+        $this->isteacher = $isteacher;
         parent::__construct(null, null, 'get');
     }
 
@@ -88,7 +88,7 @@ class programming_plag_result_form extends moodleform {
         $mform->addElement('select', 'tool', get_string('detection_tool', 'plagiarism_programming'), $tools);
 
         // Only show display options when a teacher is seeing the form. A student is not allowed to see the matrix version.
-        if ($this->studentid == null) {
+        if ($this->isteacher) {
             // Select the mode of display.
             $displaymodes = array(
                 'group' => 'Grouping students',
@@ -128,8 +128,8 @@ class programming_plag_result_form extends moodleform {
         // Other elements.
         $mform->addElement('hidden', 'cmid', $this->_customdata['cmid']);
         $mform->setType('cmid', PARAM_INT);
-        $mform->addElement('hidden', 'student', $this->_customdata['student_id']);
-        $mform->setType('student', PARAM_INT);
+        //$mform->addElement('hidden', 'student', $this->_customdata['student_id']);
+        //$mform->setType('student', PARAM_INT);
 
         $mform->addElement('submit', 'submitbutton', get_string('submit', 'plagiarism_programming'));
 
