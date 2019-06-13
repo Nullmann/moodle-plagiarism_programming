@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 M.plagiarism_programming = M.plagiarism_programming || {};
-M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 350, chart_height : 200, init : function (Y) {
+M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 350, chart_height : 190, init : function (Y) {
     this.init_report(Y);
 }, init_report : function (Y) {
     Y.all('.similar_pair').each(function (cell) {
@@ -50,7 +50,15 @@ M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 3
     Y.io('mark_result.php?task=get_history&rate_type=' + rate_type + '&id=' + pair_id, { on : { success : function (id, response) {
         var div = M.plagiarism_programming.view_report.load_overlay(response, Y)
         var history_overlay = M.plagiarism_programming.view_report.history_overlay;
-        history_overlay.align(img, [ Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TR ]);
+
+        if (img._node.x < M.plagiarism_programming.view_report.chart_width) {
+            // Display the overloay to the right of the clicked content (arrow or link).
+            history_overlay.align(img, [ Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TR ]);
+        } else {
+            // Display the overloay to the left of the clicked content (arrow or link).
+            history_overlay.align(img, [ Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR ]);
+        }
+
         history_overlay.set('bodyContent', div);
         history_overlay.render(document.body)
         history_overlay.show();
@@ -63,10 +71,8 @@ M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 3
     var left = 20;
     var h_label = Y.Node.create('<label class="h_label">' + M.str.moodle.date + '</label>');
     var v_label = Y.Node.create('<label class="v_label">%</label>');
-    //var title = Y.Node.create('<label class="title">' + M.str.plagiarism_programming.similarity_history + '</label>')
     canvas.append(h_label);
     canvas.append(v_label);
-    //canvas.append(title);
     for (var i in history) { // Draw every bar.
 
         // Draw a bar.
@@ -83,6 +89,7 @@ M.plagiarism_programming.view_report = { history_overlay : null, chart_width : 3
         label = Y.Node.create('<label>' + history[i].time_text + '</label>');
         label.setStyles({ left : left + 'px', bottom : '-35px' })
         canvas.append(label);
+
         left += 50;
     }
     overlay.append(canvas);

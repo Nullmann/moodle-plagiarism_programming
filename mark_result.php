@@ -52,7 +52,7 @@ if ($task == 'mark') {
         foreach ($similarityhistory as $pair) {
             $history[$pair->id] = array(
                 'time' => $pair->time_created,
-                'similarity' => ($pair->similarity1 + $pair->similarity2) / 2,
+                'similarity' => floor(($pair->similarity1 + $pair->similarity2) / 2),
                 'time_text' => date('d M', $pair->time_created)
             );
             $i++;
@@ -66,7 +66,7 @@ if ($task == 'mark') {
         foreach ($similarityhistory as $pair) {
             $history[$pair->id] = array(
                 'time' => $pair->time_created,
-                'similarity' => max($pair->similarity1, $pair->similarity2),
+                'similarity' => floor(max($pair->similarity1, $pair->similarity2)),
                 'time_text' => date('d M', $pair->time_created)
             );
             $i++;
