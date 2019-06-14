@@ -220,7 +220,7 @@ function plagiarism_programming_create_chart($reportid, $similaritytype, $setlow
             'style' => "top:$posy;width:40px"
         ));
 
-        // The bar itself.
+        // Draw the bar itself.
         $reporturl->remove_params(array(
             'upper_threshold',
             'lower_threshold'
@@ -230,19 +230,20 @@ function plagiarism_programming_create_chart($reportid, $similaritytype, $setlow
             'lower_threshold' => $lower
         ));
 
-        // Number of pairs.
         $left = "0px";
         if ($val > 0) {
+
             $class = 'bar';
             if ($setlowerthreshold == $lower && $setupperthreshold == $upper) {
                 $class .= ' selected'; // Add "selected" class to bar if the bounds are set.
             }
+
             $div .= html_writer::link($reporturl->out(false), '', array(
                 'class' => $class,
                 'style' => "top:$posy;width:$width"
             ));
 
-            // The number of pairs
+            // Draw the number.
             $left = (rtrim($width, "px") + 5) . 'px';
             $div .= html_writer::tag('div', $val, array(
                 'class' => 'legend',

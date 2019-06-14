@@ -128,8 +128,6 @@ class programming_plag_result_form extends moodleform {
         // Other elements.
         $mform->addElement('hidden', 'cmid', $this->_customdata['cmid']);
         $mform->setType('cmid', PARAM_INT);
-        //$mform->addElement('hidden', 'student', $this->_customdata['student_id']);
-        //$mform->setType('student', PARAM_INT);
 
         $mform->addElement('submit', 'submitbutton', get_string('submit', 'plagiarism_programming'));
 

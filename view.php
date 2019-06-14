@@ -159,13 +159,12 @@ $filterforms->set_data(array(
 ));
 $filterforms->display();
 
-if($isteacher) {
+if ($isteacher) {
     // Display the bar chart with links.
     echo "<br>";
     echo html_writer::tag('h2', get_string('chart_legend', 'plagiarism_programming'));
-    echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype, $lowerthreshold, $upperthreshold), array(
-        'class' => 'programming_result_chart'
-    ));
+    echo html_writer::tag('div', plagiarism_programming_create_chart($report->id, $ratetype, $lowerthreshold, $upperthreshold),
+        array('class' => 'programming_result_chart'));
 }
 
 // Add button to reset the table if it was filtered in any way.
