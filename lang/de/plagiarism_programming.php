@@ -183,18 +183,17 @@ $string['version_hlp'] = '';
 $string['version_hlp_help'] = 'Siehe den Bericht über frühere Scans';
 $string['pair'] = 'Anzahl an Paaren';
 
-// Im Bericht.
+// Im Bericht (view.php).
 $string['yours'] = 'Eigene Abgabe';
 $string['another'] = 'Andere Abgabe';
 $string['chart_legend'] = 'Ähnlichkeitsverteilung des gesamten Kurses';
 $string['result'] = 'Ergebnis des Ähnlichkeitsscans';
 $string['comparison_title'] = 'Ähnlichkeiten';
 $string['comparison'] = 'Vergleich';
+$string['legend'] = 'Legende';
 
 $string['plagiarism_action'] = 'Aktion';
 $string['mark_select_title'] = 'Dieses Paar markieren als';
-$string['mark_suspicious'] = 'verdächtig';
-$string['mark_nonuspicious'] = 'normal';
 $string['show_similarity_to_others'] = 'Zeige Ähnlichkeit von "{student}" mit anderen Schülern';
 $string['history_char'] = 'Ähnlichkeitshistorie anzeigen';
 
@@ -205,6 +204,8 @@ $string['stanford_link'] = 'Original Bericht auf stanford.edu';
 $string['max_similarity'] = 'Maximale Ähnlichkeit';
 $string['avg_similarity'] = 'Durchschnittliche Ähnlichkeit';
 $string['suspicious'] = 'verdächtig';
+$string['nonsuspicious'] = 'nicht verdächtig';
+$string['marked_as'] = 'Markiert als';
 $string['no_similarity'] = 'Keine Ähnlichkeit, neue Abgabe oder Fehler beim Scannen';
 $string['error_falseresponse'] = '(Moss) Server Antwort war false. Sie müssen erneut einen Scan starten, außer dies ist ein task.';
 
@@ -228,10 +229,10 @@ $string['search_by_category'] = 'Kurssuche nach Kategorie';
 // Capabilites, Berechtigungen.
 $string['programming:changesettings'] = 'Das Plugin in den Einstellungen einer Abgabe aktivieren und die Einstellungen ändern dürfen';
 $string['programming:manualscan'] = 'Manuell einen Scan starten, indem der "Scan"-Button in der grading-Übersicht gedrückt wird';
-$string['programming:markpairs'] = 'Zwei Paare als normal oder verdächtig markieren';
+$string['programming:markpairs'] = 'Zwei Paare als verdächtig oder nicht verdächtig markieren';
 $string['caperror_changesettings'] = 'Sie haben nicht die Berechtigung, die Einstellungen dieses Plugins zu ändern.';
 $string['caperror_manualscan'] = 'Sie haben nicht die Berechtigung, einen Plagiat-Scan manuell auszulösen.';
-$string['caperror_markpairs'] = 'Sie haben nicht die Berechtigung, Paare als normal oder verdächtig zu markieren.';
+$string['caperror_markpairs'] = 'Sie haben nicht die Berechtigung, Paare als verdächtig oder nicht verdächtig zu markieren.';
 
 // Task API.
 $string['task_name'] = 'Sendet geplante Scans an Moss und speichert das Ergebnis.';
@@ -247,7 +248,7 @@ $string['privacy:plagiarism_programming_reslt:similarity1'] = 'Prozentsatz der �
 $string['privacy:plagiarism_programming_reslt:similarity2'] = 'Prozentsatz der übereinstimmenden Zeilen vom Code des Studenten 2 zum Code des Studenten 1';
 $string['privacy:plagiarism_programming_reslt:comparison'] = 'Link zum Unter-HTML der Moss-Seite (z.B. http://moss.stanford.edu/results/XXXXXX/match0.html)';
 $string['privacy:plagiarism_programming_reslt:comments'] = 'Kommentare über die Ähnlichkeit';
-$string['privacy:plagiarism_programming_reslt:mark'] = 'Ob das Paar als normal oder verdächtig markiert wurde';
+$string['privacy:plagiarism_programming_reslt:mark'] = 'Ob das Paar als verdächtig oder nicht verdächtig markiert wurde';
 
 $string['privacy:metadata:moss_stanford'] = 'Der Quellcode jedes Studenten wird an den MOSS-Webservice gesendet, siehe http://theory.stanford.edu/~aiken/moss/';
 $string['privacy:metadata:moss_stanford:userid'] = 'Die Namen der einzelnen Ordner sind die Studenten-IDs';

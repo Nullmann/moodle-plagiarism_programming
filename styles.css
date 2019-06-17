@@ -150,11 +150,13 @@ a.compare_link:visited {
     color: #06c;
 }
 
+.legend_nonsuspicious,
 table.plagiarism_programming_result_table .normal,
 table.plagiarism_programming_result_table .normal .cell {
     background-color: #cafeb8;
 }
 
+.legend_suspicious,
 table.plagiarism_programming_result_table .suspicious,
 table.plagiarism_programming_result_table .suspicious .cell {
     background-color: #f9d6b8;

@@ -141,8 +141,8 @@ $content = '';
 // If the user has the capability, add the box to mark as suspicious or normal.
 if (has_capability('plagiarism/programming:markpairs', $context)) {
     $actions = array(
-        'Y' => get_string('mark_suspicious', 'plagiarism_programming'),
-        'N' => get_string('mark_nonsuspicious', 'plagiarism_programming')
+        'Y' => get_string('suspicious', 'plagiarism_programming'),
+        'N' => get_string('nonsuspicious', 'plagiarism_programming')
     );
     $content .= html_writer::label(get_string('mark_select_title', 'plagiarism_programming'), 'action_menu') . ' ';
     $content .= html_writer::select($actions, 'mark', $resultrecord->mark, get_string('choosedots'), array(

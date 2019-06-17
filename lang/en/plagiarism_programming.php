@@ -99,7 +99,7 @@ $string['date_selector_finished_hlp'] = '';
 $string['date_selector_finished_hlp_help'] = 'This scan was finished and can not be changed anymore. See the report in grading view.';
 $string['auto_publish_hlp'] = '';
 $string['auto_publish_hlp_help'] = 'Allow the students to see the plagiarism report. They can only see the percentages'
-    .', neither the code nor the names of other students. Also marking a pair as supicious or normal is not shown to students.';
+    .', neither the code nor the names of other students. Also marking a pair as supicious or not suspicious is not shown to students.';
 $string['notification_hlp'] = '';
 $string['notification_hlp_help'] = 'Notify the student that their submission will be scanned for plagiarism';
 $string['programming_language_missing'] = 'Programming language is required';
@@ -183,18 +183,17 @@ $string['version_hlp'] = '';
 $string['version_hlp_help'] = 'See the report of previous scans';
 $string['pair'] = 'Amount of pairs';
 
-// In the report.
+// In the report (view.php).
 $string['yours'] = 'Own submission';
 $string['another'] = 'Another submission';
 $string['chart_legend'] = 'Similarity rate distribution of the whole course';
 $string['result'] = 'Similarity scanning result';
 $string['comparison_title'] = 'Similarities';
 $string['comparison'] = 'Comparison';
+$string['legend'] = 'Legend';
 
 $string['plagiarism_action'] = 'Action';
 $string['mark_select_title'] = 'Mark this pair as';
-$string['mark_suspicious'] = 'suspicious';
-$string['mark_nonsuspicious'] = 'normal';
 $string['show_similarity_to_others'] = 'Show similarity of "{student}" with other students';
 $string['history_char'] = 'Show similarity history';
 
@@ -205,6 +204,8 @@ $string['stanford_link'] = 'Original Report on stanford.edu';
 $string['max_similarity'] = 'Max similarity';
 $string['avg_similarity'] = 'Average similarity';
 $string['suspicious'] = 'suspicious';
+$string['marked_as'] = 'Marked as';
+$string['nonsuspicious'] = 'not suspicious';
 $string['no_similarity'] = 'No similarity, new submission or failed to scan.';
 $string['error_falseresponse'] = '(Moss) Server response was false. You have to trigger a new scan, except if this is a task.';
 
@@ -229,10 +230,10 @@ $string['search_by_category'] = 'Course search by category';
 // Capabilites.
 $string['programming:changesettings'] = 'Enable the plugin in the settings of a submission';
 $string['programming:manualscan'] = 'Manually trigger a scan by pressing the "Scan"-Button in grading overview';
-$string['programming:markpairs'] = 'Mark two pairs as either normal of suspicious';
+$string['programming:markpairs'] = 'Mark two pairs as either suspicious or not suspicious';
 $string['caperror_changesettings'] = 'You do not have the permission to change the settings of this plugin.';
 $string['caperror_manualscan'] = 'You do not have the permission to manually trigger a plagiarism-scan.';
-$string['caperror_markpairs'] = 'You do not have the permission to mark pairs as normal or suspicious.';
+$string['caperror_markpairs'] = 'You do not have the permission to mark pairs as suspicious or not suspicious.';
 
 // Task API.
 $string['task_name'] = 'Sends scheduled scans to moss and saves the result.';
@@ -248,7 +249,7 @@ $string['privacy:plagiarism_programming_reslt:similarity1'] = 'Percentage of mat
 $string['privacy:plagiarism_programming_reslt:similarity2'] = 'Percentage of matching lines from code of student 2 to code of student 1';
 $string['privacy:plagiarism_programming_reslt:comparison'] = 'Link to sub-html of moss result (e.g. http://moss.stanford.edu/results/XXXXXX/match0.html)';
 $string['privacy:plagiarism_programming_reslt:comments'] = 'Comments about the similarity';
-$string['privacy:plagiarism_programming_reslt:mark'] = 'If it was marked as normal or suspicious';
+$string['privacy:plagiarism_programming_reslt:mark'] = 'If it was marked as suspicious or not suspicious';
 
 $string['privacy:metadata:moss_stanford'] = 'The source code of each student is sent to the MOSS Web service, see http://theory.stanford.edu/~aiken/moss/';
 $string['privacy:metadata:moss_stanford:userid'] = 'The names of each folder are the students ids.';

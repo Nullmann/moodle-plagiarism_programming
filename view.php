@@ -131,22 +131,13 @@ $select .= ' ORDER BY similarity DESC';
 $result = $DB->get_records_sql($select, $params);
 $result = plagiarism_programming_transform_similarity_pair($result);
 
-$studentnames = null;
-// This will create the array id=>name in $studentnames.
-plagiarism_programming_create_student_lookup_table($result, $isteacher, $studentnames, $coursemodule->course);
-
-if ($displaymode == 'group') {
-    $table = plagiarism_programming_create_table_grouping_mode($result, $studentnames); // Matrix mode.
-} else {
-    $table = plagiarism_programming_create_table_list_mode($result, $studentnames, $studentid, $isteacher);
-}
-
 $header = get_string('result', 'plagiarism_programming');
 $PAGE->set_title($header);
 $PAGE->set_heading($header);
 $PAGE->navbar->add($header);
 echo $OUTPUT->header();
 
+// Display the filtering on top.
 $filterforms = new programming_plag_result_form($cmid, $tool, $isteacher);
 $filterforms->set_data(array(
     'cmid' => $cmid,
@@ -167,17 +158,34 @@ if ($isteacher) {
         array('class' => 'programming_result_chart'));
 }
 
+echo "<br>";
+
 // Add button to reset the table if it was filtered in any way.
 if ($upperthreshold != 100 OR $lowerthreshold != 0 OR ($studentid && $isteacher)) {
-    echo "<br>";
     echo html_writer::tag('a', get_string('resetfilter', 'tag'), array('href' => $PAGE->url, 'class' => 'btn btn-default'));
     echo "<br><br>";
+}
+
+// Display the table with students and their similarities.
+$studentnames = null;
+plagiarism_programming_create_student_lookup_table($result, $isteacher, $studentnames, $coursemodule->course); // Creates the array id=>name in $studentnames.
+
+if ($displaymode == 'group') {
+    $table = plagiarism_programming_create_table_grouping_mode($result, $studentnames); // Matrix mode.
+} else {
+    $table = plagiarism_programming_create_table_list_mode($result, $studentnames, $studentid, $isteacher);
 }
 
 echo html_writer::tag('div', html_writer::table($table), array(
     'class' => 'programming_result_table'
 ));
 
+echo '<div class="col-2 float-right">'.get_string('legend','plagiarism_programming').': ';
+echo '<div class = "legend_suspicious">'.get_string('marked_as','plagiarism_programming').' '.get_string('suspicious','plagiarism_programming').'</div>';
+echo '<div class = "legend_nonsuspicious">'.get_string('marked_as','plagiarism_programming').' '.get_string('nonsuspicious','plagiarism_programming').'</div>';
+echo '</div><br><br><br>';
+
+// Include Javascript, for displaying of similarity history.
 $jsmodule = array(
     'name' => 'plagiarism_programming',
     'fullpath' => '/plagiarism/programming/view_report.js',
