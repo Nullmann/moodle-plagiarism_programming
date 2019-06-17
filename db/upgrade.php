@@ -34,21 +34,6 @@ function xmldb_plagiarism_programming_upgrade($oldversion = 0) {
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2019061703) {
-
-        // Define field see_mark to be added to plagiarism_programming.
-        $table = new xmldb_table('plagiarism_programming');
-        $field = new xmldb_field('see_mark', XMLDB_TYPE_BINARY, null, null, null, null, null, 'auto_publish');
-
-        // Conditionally launch add field see_mark.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Programming savepoint reached.
-        upgrade_plugin_savepoint(true, 2019061703, 'plagiarism', 'programming');
-    }
-
     // Add a new column newcol to the mdl_myqtype_options.
     if ($oldversion < 2012062001) {
 
@@ -301,5 +286,21 @@ function xmldb_plagiarism_programming_upgrade($oldversion = 0) {
 
         upgrade_plugin_savepoint(true, 2014040102, 'plagiarism', 'programming');
     }
+
+    if ($oldversion < 2019061703) {
+
+        // Define field see_mark to be added to plagiarism_programming.
+        $table = new xmldb_table('plagiarism_programming');
+        $field = new xmldb_field('see_mark', XMLDB_TYPE_BINARY, null, null, null, null, null, 'auto_publish');
+
+        // Conditionally launch add field see_mark.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Programming savepoint reached.
+        upgrade_plugin_savepoint(true, 2019061703, 'plagiarism', 'programming');
+    }
+
     return true;
 }
