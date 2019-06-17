@@ -170,20 +170,25 @@ if ($upperthreshold != 100 OR $lowerthreshold != 0 OR ($studentid && $isteacher)
 $studentnames = null;
 plagiarism_programming_create_student_lookup_table($result, $isteacher, $studentnames, $coursemodule->course); // Creates the array id=>name in $studentnames.
 
+$seemark = $DB->get_record('plagiarism_programming', array('cmid' => $coursemodule->id), 'see_mark')->see_mark; // If students are allowed to see the markings.
 if ($displaymode == 'group') {
     $table = plagiarism_programming_create_table_grouping_mode($result, $studentnames); // Matrix mode.
 } else {
-    $table = plagiarism_programming_create_table_list_mode($result, $studentnames, $studentid, $isteacher);
+    $table = plagiarism_programming_create_table_list_mode($result, $studentnames, $studentid, $isteacher, $seemark);
 }
 
 echo html_writer::tag('div', html_writer::table($table), array(
     'class' => 'programming_result_table'
 ));
 
-echo '<div class="col-2 float-right">'.get_string('legend','plagiarism_programming').': ';
-echo '<div class = "legend_suspicious">'.get_string('marked_as','plagiarism_programming').' '.get_string('suspicious','plagiarism_programming').'</div>';
-echo '<div class = "legend_nonsuspicious">'.get_string('marked_as','plagiarism_programming').' '.get_string('nonsuspicious','plagiarism_programming').'</div>';
-echo '</div><br><br><br>';
+// TODO: Only do this if it is set in the settings!!!!!
+// Show the legend if user is a teacher or if the student is allowed to see the markings (to not confuse them).
+if ($isteacher or $seemark) {
+    echo '<div class="col-2 float-right">'.get_string('legend', 'plagiarism_programming').': ';
+    echo '<div class = "legend_suspicious">'.get_string('marked_as', 'plagiarism_programming').' '.get_string('suspicious', 'plagiarism_programming').'</div>';
+    echo '<div class = "legend_nonsuspicious">'.get_string('marked_as', 'plagiarism_programming').' '.get_string('nonsuspicious', 'plagiarism_programming').'</div>';
+    echo '</div><br><br><br>';
+}
 
 // Include Javascript, for displaying of similarity history.
 $jsmodule = array(

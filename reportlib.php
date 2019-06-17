@@ -111,7 +111,7 @@ function plagiarism_programming_create_table_grouping_mode(&$list, &$studentname
  * @param Boolean $isteacher
  * @return $table The html_table object.
  */
-function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $anchorstudentid = null, $isteacher) {
+function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $anchorstudentid = null, $isteacher, $seemark) {
     $table = new html_table();
     $table->attributes['class'] = 'plagiarism_programming_result_table generaltable';
     $rownum = 1;
@@ -161,7 +161,7 @@ function plagiarism_programming_create_table_list_mode(&$list, &$studentnames, $
         $row->cells[] = $cell;
 
         // Do not show the mark as suspicious or normal if a student is seeing the table.
-        if ($isteacher) {
+        if ($isteacher or $seemark) {
             $mark = $pair->mark;
             $row->attributes['class'] = ($mark == 'Y') ? 'suspicious' : (($mark == 'N') ? 'normal' : '');
         }

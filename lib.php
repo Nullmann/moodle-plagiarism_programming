@@ -152,6 +152,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
 
         // Additional settings.
         $mform->addElement('checkbox', 'auto_publish', get_string('auto_publish', 'plagiarism_programming'));
+        $mform->addElement('checkbox', 'see_mark', get_string('see_mark', 'plagiarism_programming'));
         $mform->addElement('checkbox', 'notification', get_string('notification', 'plagiarism_programming'));
         $mform->addElement('textarea', 'notification_text', get_string('notification_text', 'plagiarism_programming'),
             'wrap="virtual" rows="4" cols="50"');
@@ -159,7 +160,8 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
 
         $mform->disabledIf('programming_language', 'programmingYN', 'eq', 0);
         $mform->disabledIf('auto_publish', 'programmingYN', 'eq', 0);
-        $mform->disabledIf('notification', 'programmingYN', 'eq', 0);
+        $mform->disabledIf('see_mark', 'programmingYN', 'eq', 0);
+        $mform->disabledIf('see_mark', 'auto_publish', 'notchecked');
         $mform->disabledIf('notification', 'programmingYN', 'eq', 0);
         $mform->disabledIf('notification_text', 'programmingYN', 'eq', 0);
         $mform->disabledIf('notification_text', 'notification', 'notchecked');
@@ -169,6 +171,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         $mform->addHelpButton('programming_language', 'programmingLanguage_hlp', 'plagiarism_programming');
         $mform->addHelpButton('detection_tools', 'detection_tools_hlp', 'plagiarism_programming');
         $mform->addHelpButton('auto_publish', 'auto_publish_hlp', 'plagiarism_programming');
+        $mform->addHelpButton('see_mark', 'see_mark_hlp', 'plagiarism_programming');
         $mform->addHelpButton('notification', 'notification_hlp', 'plagiarism_programming');
         $mform->addHelpButton('notification_text', 'notification_text_hlp', 'plagiarism_programming');
 
@@ -178,6 +181,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             $mform->setDefault('detection_tools[jplag]', $plagiarismconfig->jplag);
             $mform->setDefault('detection_tools[moss]', $plagiarismconfig->moss);
             $mform->setDefault('auto_publish', $plagiarismconfig->auto_publish);
+            $mform->setDefault('see_mark', $plagiarismconfig->see_mark);
             $mform->setDefault('notification', $plagiarismconfig->notification);
             $mform->setDefault('notification_text', $plagiarismconfig->notification_text);
         }
@@ -231,6 +235,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
             $setting->jplag = isset($data->detection_tools['jplag']) ? 1 : 0;
             $setting->moss = isset($data->detection_tools['moss']) ? 1 : 0;
             $setting->auto_publish = isset($data->auto_publish) ? 1 : 0;
+            $setting->see_mark = isset($data->see_mark) ? 1 : 0;
             if (isset($data->notification)) {
                 $setting->notification = 1;
                 $setting->notification_text = $data->notification_text;

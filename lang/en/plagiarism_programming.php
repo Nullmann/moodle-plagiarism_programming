@@ -100,6 +100,9 @@ $string['date_selector_finished_hlp_help'] = 'This scan was finished and can not
 $string['auto_publish_hlp'] = '';
 $string['auto_publish_hlp_help'] = 'Allow the students to see the plagiarism report. They can only see the percentages'
     .', neither the code nor the names of other students. Also marking a pair as supicious or not suspicious is not shown to students.';
+$string['see_mark'] = 'Show markings';
+$string['see_mark_hlp'] = '';
+$string['see_mark_hlp_help'] = 'Students can see if a pair was marked as suspicious or not suspicious';
 $string['notification_hlp'] = '';
 $string['notification_hlp_help'] = 'Notify the student that their submission will be scanned for plagiarism';
 $string['programming_language_missing'] = 'Programming language is required';
