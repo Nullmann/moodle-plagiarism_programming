@@ -300,28 +300,29 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
         $studentid = $linkarray['userid'];
 
         if ($canshow == null) { // Those computed values are cached in static variables and reused.
-            $canshow = $this->is_plugin_enabled($cmid);
-            if ($canshow) {
+            if ($this->is_plugin_enabled($cmid)) { // If the plugin is activated globally.
                 $settings = $DB->get_record('plagiarism_programming', array('cmid' => $cmid));
-                $canshow = $settings != null;
 
-                if ($settings->moss) {
-                    $mossparam = $DB->get_record('plagiarism_programming_moss', array('settingid' => $settings->id));
-                }
-                if ($settings->jplag) {
-                    $jplagparam = $DB->get_record('plagiarism_programming_jplag', array('settingid' => $settings->id));
-                }
-                $canshow = (isset($mossparam) && $mossparam->status == 'finished') ||
-                    (isset($jplagparam) && $jplagparam->status == 'finished');
+                if ($settings != null) { // If the plugin is activated for this assignment.
 
-                $context = context_module::instance($cmid);
-                $isteacher = has_capability('mod/assignment:grade', $context);
-                $canshow = $isteacher || ($settings->auto_publish && has_capability('mod/assignment:view', $context));
-
-                if ($isteacher) {
-                    $students = plagiarism_programming_get_students_similarity_info($cmid);
-                } else {
-                    $students = plagiarism_programming_get_students_similarity_info($cmid, $studentid);
+                    if ($settings->moss) {
+                        $mossparam = $DB->get_record('plagiarism_programming_moss', array('settingid' => $settings->id));
+                    }
+                    if ($settings->jplag) {
+                        $jplagparam = $DB->get_record('plagiarism_programming_jplag', array('settingid' => $settings->id));
+                    }
+                    $canshow = (isset($mossparam) && $mossparam->status == 'finished') ||
+                        (isset($jplagparam) && $jplagparam->status == 'finished');
+    
+                    $context = context_module::instance($cmid);
+                    $isteacher = has_capability('mod/assignment:grade', $context);
+                    $canshow = $isteacher || ($settings->auto_publish && has_capability('mod/assignment:view', $context));
+    
+                    if ($isteacher) {
+                        $students = plagiarism_programming_get_students_similarity_info($cmid);
+                    } else {
+                        $students = plagiarism_programming_get_students_similarity_info($cmid, $studentid);
+                    }
                 }
             }
         }
@@ -559,12 +560,7 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
      */
     public function is_plugin_enabled($cmid, $courseid=null) {
 
-        $settings = (array)get_config('plagiarism');
-        if ($settings['programming_use']) { // Globaly enabled.
-            return true;
-        } else {
-            return false;
-        }
+        return get_config('plagiarism')->programming_use;
 
         /* Course-specific activation is not supported anymore.
          *

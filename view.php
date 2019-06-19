@@ -181,7 +181,6 @@ echo html_writer::tag('div', html_writer::table($table), array(
     'class' => 'programming_result_table'
 ));
 
-// TODO: Only do this if it is set in the settings!!!!!
 // Show the legend if user is a teacher or if the student is allowed to see the markings (to not confuse them).
 if ($isteacher or $seemark) {
     echo '<div class="col-2 float-right">'.get_string('legend', 'plagiarism_programming').': ';

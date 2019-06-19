@@ -29,8 +29,8 @@ M.plagiarism_programming.assignment_setting = {
         }
 
         // Add delete buttons for each activatable scan date.
-        var enabled_chk = config_block.all('[name*=scan_date\\[][name*=calendar');
-        enabled_chk._nodes.forEach(function (item, index) {
+        var calendar_icon = config_block.all('[name*=scan_date\\[][name*=calendar');
+        calendar_icon._nodes.forEach(function (item, index) {
             var deleteIcon = document.createElement('a');
             deleteIcon.innerHTML = ('<a class="d-inline-block col-form-label availability-delete p-x-1" href="" title="Delete" role="button">'
                     + '<img src="' + M.util.image_url('t/delete', 'core') + '" alt="Delete"></a>');
