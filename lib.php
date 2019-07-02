@@ -313,11 +313,11 @@ class plagiarism_plugin_programming extends plagiarism_plugin {
                     }
                     $canshow = (isset($mossparam) && $mossparam->status == 'finished') ||
                         (isset($jplagparam) && $jplagparam->status == 'finished');
-    
+
                     $context = context_module::instance($cmid);
                     $isteacher = has_capability('mod/assignment:grade', $context);
                     $canshow = $isteacher || ($settings->auto_publish && has_capability('mod/assignment:view', $context));
-    
+
                     if ($isteacher) {
                         $students = plagiarism_programming_get_students_similarity_info($cmid);
                     } else {
